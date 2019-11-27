@@ -1,6 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
+import { Icon } from '../Icon';
+
 import classes from './NavigationBar.module.scss';
 
 function NavigationBar() {
@@ -8,9 +10,7 @@ function NavigationBar() {
     <header className={classes.Header}>
       <nav className={classes.NavigationBar}>
         <NavLink to="/">
-          <span className={classes.Icon} role="img" aria-label="icon">
-            📝
-          </span>
+          <Icon className={classes.Icon} ariaLabel="app-icon" icon="📝" />
         </NavLink>
         <NavLink className={classes.Link} activeClassName={classes.active} to="/todos">
           Things to do

@@ -1,12 +1,11 @@
 import React from 'react';
 
+import { Icon } from '../../components';
+
 function PageNotFound() {
   return (
     <h1 style={{ textAlign: 'center' }}>
-      404 Page not found{' '}
-      <span role="img" aria-label="page-not-found-icon">
-        🙀
-      </span>
+      404 Page not found <Icon ariaLabel="page-not-found-icon" icon="🙀" />
     </h1>
   );
 }

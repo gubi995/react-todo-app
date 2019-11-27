@@ -1,0 +1,17 @@
+.Button {
+  background: transparent;
+  border-radius: 3px;
+  border: 2px solid lightseagreen;
+  color: lightseagreen;
+  margin: 0 1em;
+  padding: 0.5em 2em;
+  font-size: 1em;
+  font-weight: bold;
+  outline: none;
+  cursor: pointer;
+
+  &.primary {
+    background: lightseagreen;
+    color: white;
+  }
+}
