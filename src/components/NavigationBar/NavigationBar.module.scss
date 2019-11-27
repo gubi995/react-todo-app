@@ -1,0 +1,42 @@
+.NavigationBar {
+  position: sticky;
+  display: flex;
+  align-items: center;
+  background-color: lightseagreen;
+  height: 3em;
+
+  & > * {
+    margin: 0 0.5em;
+  }
+}
+
+.Icon {
+  height: 100%;
+  padding: 0 1em;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.Link {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 0.5em;
+  text-decoration: none;
+  font-size: large;
+  font-weight: bold;
+  color: white;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  transition: all 0.3s;
+
+  &:hover,
+  &:active,
+  &.active {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background-color: white;
+    color: lightseagreen;
+  }
+}
