@@ -1,0 +1,24 @@
+.CreateTodoButton {
+  cursor: pointer;
+  position: fixed;
+  right: 2em;
+  bottom: 2em;
+  width: 5em;
+  height: 5em;
+  border-radius: 50%;
+  background-color: lightseagreen;
+  border-style: none;
+  outline: none;
+  background-position: center;
+  transition: background 0.8s;
+
+  &:hover {
+    background: #26c1b9 radial-gradient(circle, transparent 1%, #2ad4cb 1%) center/15000%;
+  }
+
+  &:active {
+    background-color: #2ad4cb;
+    background-size: 100%;
+    transition: background 0s;
+  }
+}

@@ -1,5 +1,9 @@
-.NavigationBar {
+.Header {
   position: sticky;
+  top: 0;
+}
+
+.NavigationBar {
   display: flex;
   align-items: center;
   background-color: lightseagreen;

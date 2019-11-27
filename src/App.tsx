@@ -1,17 +1,19 @@
 import React from 'react';
 
-import { NavigationBar, RoutesWrapper } from './components';
+import { NavigationBar, RoutesWrapper, CreateTodoButton } from './components';
 
 const App: React.FC = () => {
   return (
     <div>
-      <header>
-        <NavigationBar />
-      </header>
+      <NavigationBar />
 
       <main>
         <RoutesWrapper />
       </main>
+
+      <footer>
+        <CreateTodoButton />
+      </footer>
     </div>
   );
 };
