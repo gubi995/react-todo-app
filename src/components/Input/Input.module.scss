@@ -1,0 +1,13 @@
+.Input {
+  background: #9a9a9a1f;
+  border-radius: 3px;
+  border: none;
+  color: #737373;
+  padding: 0.5em 1em;
+  font-size: 1em;
+  outline-color: lightseagreen;
+
+  &.Select {
+    cursor: pointer;
+  }
+}

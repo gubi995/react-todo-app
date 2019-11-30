@@ -1,9 +1,9 @@
 export interface ITodo {
   title: string;
-  assignee: IAssignee | null;
-  completed: boolean;
   priority: Priority;
   deadline: string;
+  completed: boolean;
+  assignee: IAssignee | null;
   subTasks: SubTask[];
 }
 

@@ -4,17 +4,23 @@ import classes from './Button.module.scss';
 
 type Props = {
   primary?: boolean;
-  children?: string;
+  rounded?: boolean;
+  type?: 'button' | 'submit' | 'reset';
 };
 
-function Button(props: Props) {
-  const buttonStyle = Array(classes.Button);
+function Button(props: Props & React.HTMLProps<HTMLButtonElement>) {
+  const { primary, rounded, ...rest } = props;
+  const buttonStyle = [classes.Button];
 
   if (props.primary) {
     buttonStyle.push(classes.primary);
   }
 
-  return <button className={buttonStyle.join(' ')} {...props} />;
+  if (props.rounded) {
+    buttonStyle.push(classes.rounded);
+  }
+
+  return <button className={buttonStyle.join(' ')} {...rest} />;
 }
 
 export default Button;

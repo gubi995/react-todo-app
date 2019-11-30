@@ -3,15 +3,28 @@
   border-radius: 3px;
   border: 2px solid lightseagreen;
   color: lightseagreen;
-  margin: 0 1em;
   padding: 0.5em 2em;
   font-size: 1em;
   font-weight: bold;
-  outline: none;
+  outline-color: #187c77;
+  transition: background 0.1s;
   cursor: pointer;
+
+  &:active {
+    background: #20b2ab2f;
+  }
+
+  &.rounded {
+    border-radius: 50%;
+    padding: 0.5em;
+  }
 
   &.primary {
     background: lightseagreen;
     color: white;
+
+    &:active {
+      background: #1a948e;
+    }
   }
 }

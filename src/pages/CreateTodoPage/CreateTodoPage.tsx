@@ -1,16 +1,11 @@
 import React from 'react';
 
-import { Button, Icon } from '../../components';
+import { TodoForm } from '../../containers';
 
 function CreateTodoPage() {
   return (
-    <div>
-      <div>
-        <h3>
-          TODO <Icon ariaLabel="page-not-found-icon" icon="📐" />
-        </h3>
-        <Button primary>Save</Button>
-      </div>
+    <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <TodoForm />
     </div>
   );
 }
