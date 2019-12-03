@@ -2,7 +2,11 @@ import React from 'react';
 
 import classes from './Input.module.scss';
 
-function Input(props: any) {
+interface Props {
+  type?: string;
+}
+
+function Input(props: Props) {
   const { type, ...rest } = props;
   let component = <input className={classes.Input} {...props} />;
 

@@ -1,15 +1,13 @@
 import React from 'react';
 
-type Props = {
+interface Props extends React.HTMLProps<HTMLSpanElement> {
   icon: string;
   ariaLabel: string;
-  className?: string;
-  rest?: any;
-};
+}
 
-function Icon({ icon, ariaLabel, className, ...rest }: Props) {
+function Icon({ icon, ariaLabel, ...rest }: Props) {
   return (
-    <span role="img" aria-label={ariaLabel} className={className} {...rest}>
+    <span role="img" aria-label={ariaLabel} {...rest}>
       {icon}
     </span>
   );

@@ -2,21 +2,20 @@ import React from 'react';
 
 import classes from './Button.module.scss';
 
-type Props = {
+interface Props extends React.HTMLProps<HTMLButtonElement> {
   primary?: boolean;
   rounded?: boolean;
   type?: 'button' | 'submit' | 'reset';
-};
+}
 
-function Button(props: Props & React.HTMLProps<HTMLButtonElement>) {
-  const { primary, rounded, ...rest } = props;
+function Button({ primary, rounded, ...rest }: Props) {
   const buttonStyle = [classes.Button];
 
-  if (props.primary) {
+  if (primary) {
     buttonStyle.push(classes.primary);
   }
 
-  if (props.rounded) {
+  if (rounded) {
     buttonStyle.push(classes.rounded);
   }
 

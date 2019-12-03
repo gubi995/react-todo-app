@@ -1,90 +1,95 @@
 import React, { useRef, RefObject } from 'react';
 
-import { Icon, Button, InputWithLabel } from '../../components';
-import { Priority } from '../../models/todo.model';
+import { Formik, Form, FormikState, FormikHelpers, FieldArray, ArrayHelpers } from 'formik';
+
+import { Icon, Button, InputWithLabel, PriorityOptions, SubTaskList, SubTaskControlButtons } from '../../components';
+import { ITodo } from '../../models/todo.model';
+import initialValues from './initial-values';
+import validationSchema from './validation-schema';
 
 import classes from './TodoForm.module.scss';
 
-function PriorityOptions() {
-  return (
-    <>
-      <option value={Priority.LOW}>{`${Priority.LOW} 🟢`}</option>
-      <option value={Priority.NORMAL}>{`${Priority.NORMAL} 🟠`}</option>
-      <option value={Priority.HIGH}>{`${Priority.HIGH} 🔴`}</option>
-    </>
-  );
-}
-
 function TodoForm() {
-  const container: RefObject<any> = useRef(null);
+  const subTaskListRef: RefObject<HTMLDivElement> = useRef(null);
 
-  const handleScroll = (direction: string) => {
-    const containerEl = container.current;
+  const scrollHandler = (direction: string) => {
+    const subTaskListEl = subTaskListRef.current;
 
-    if (direction === 'right') {
-      container.current.scrollTo({ left: containerEl.scrollLeft + 250, behavior: 'smooth' });
-    } else {
-      container.current.scrollTo({ left: containerEl.scrollLeft - 250, behavior: 'smooth' });
+    if (subTaskListEl) {
+      subTaskListEl.scrollTo({
+        left: direction === 'right' ? subTaskListEl.scrollLeft + 250 : subTaskListEl.scrollLeft - 250,
+        behavior: 'smooth',
+      });
     }
   };
 
+  const onSubmit = (values: ITodo, { setSubmitting, resetForm }: FormikHelpers<ITodo>) => {
+    setTimeout(() => {
+      console.log(values);
+      setSubmitting(false);
+      resetForm();
+    }, 2000);
+  };
+
+  const onReset = (values: ITodo, { resetForm }: FormikHelpers<ITodo>) => {
+    resetForm();
+  };
+
   return (
-    <div className={classes.TodoForm}>
-      <h3 className={classes.Heading}>
-        TODO <Icon ariaLabel="page-not-found-icon" icon="✍" />
-      </h3>
+    <Formik
+      initialValues={initialValues}
+      onSubmit={onSubmit}
+      onReset={onReset}
+      validationSchema={validationSchema}
+      novalidate
+      autocomplete="off"
+    >
+      {({ values, isSubmitting }: FormikState<ITodo>) => {
+        return (
+          <Form className={classes.TodoForm}>
+            <h3 className={classes.Heading}>
+              TODO <Icon ariaLabel="page-not-found-icon" icon="✍" />
+            </h3>
 
-      <div className={classes.FieldsContainer}>
-        <div>
-          <h5>Task info</h5>
-          <InputWithLabel labelProps={{ children: 'Title' }} inputProps={{}} />
-          <InputWithLabel
-            labelProps={{ children: 'Priority' }}
-            inputProps={{ type: 'select', children: <PriorityOptions /> }}
-          />
-          <InputWithLabel labelProps={{ children: 'Deadline' }} inputProps={{ type: 'date' }} />
-          <InputWithLabel labelProps={{ children: 'Completed' }} inputProps={{ type: 'checkbox' }} />
-          <h5>Assignee</h5>
-          <InputWithLabel labelProps={{ children: 'Name' }} inputProps={{}} />
-          <InputWithLabel labelProps={{ children: 'Email' }} inputProps={{ type: 'email' }} />
-        </div>
+            <div className={classes.FieldsContainer}>
+              <div>
+                <h5>Task info</h5>
+                <InputWithLabel name="title" label="Title" />
+                <InputWithLabel type="select" name="priority" label="Priority">
+                  <PriorityOptions />
+                </InputWithLabel>
+                <InputWithLabel type="date" name="deadline" label="Deadline" />
+                <InputWithLabel type="checkbox" name="completed" label="Completed" />
+                <h5>Assignee</h5>
+                <InputWithLabel name="assignee.name" label="Name" />
+                <InputWithLabel type="email" name="assignee.email" label="Email" />
+              </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <h5>Sub-tasks</h5>
-          <div className={classes.SubTaskContainer} ref={container}>
-            <div className={classes.SubTask}>
-              <InputWithLabel labelProps={{ children: 'Title' }} inputProps={{}} />
-              <InputWithLabel labelProps={{ children: 'Completed' }} inputProps={{ type: 'checkbox' }} />
-              <Icon className={classes.DeleteButton} ariaLabel="delete-sub-task" icon="❌" />
+              <div className={classes.SubTaskContainer}>
+                <FieldArray name="subTasks">
+                  {({ remove, insert }: ArrayHelpers) => (
+                    <>
+                      <SubTaskList subTaskList={values.subTasks} ref={subTaskListRef} onRemove={remove} />
+                      <SubTaskControlButtons
+                        addSubTask={() => insert(0, { title: '', completed: false })}
+                        handleScroll={scrollHandler}
+                      />
+                    </>
+                  )}
+                </FieldArray>
+              </div>
             </div>
-            <div className={classes.SubTask}>
-              <InputWithLabel labelProps={{ children: 'Title' }} inputProps={{}} />
-              <InputWithLabel labelProps={{ children: 'Completed' }} inputProps={{ type: 'checkbox' }} />
-            </div>
-            <div className={classes.SubTask}>
-              <InputWithLabel labelProps={{ children: 'Title' }} inputProps={{}} />
-              <InputWithLabel labelProps={{ children: 'Completed' }} inputProps={{ type: 'checkbox' }} />
-            </div>
-          </div>
-          <div style={{ display: 'flex', justifyContent: 'space-evenly', margin: '1em' }}>
-            <Button primary rounded onClick={() => handleScroll('left')}>
-              <Icon ariaLabel="previous-sub-task" icon="👈" />
-            </Button>
-            <Button primary rounded>
-              <Icon ariaLabel="new-sub-task" icon="➕" />
-            </Button>
-            <Button primary rounded onClick={() => handleScroll('right')}>
-              <Icon ariaLabel="next-sub-task" icon="👉" />
-            </Button>
-          </div>
-        </div>
-      </div>
 
-      <div className={classes.ButtonsContainer}>
-        <Button>Reset</Button>
-        <Button primary>Save</Button>
-      </div>
-    </div>
+            <div className={classes.ButtonsContainer}>
+              <Button type="reset">Reset</Button>
+              <Button type="submit" primary disabled={isSubmitting}>
+                Save
+              </Button>
+            </div>
+          </Form>
+        );
+      }}
+    </Formik>
   );
 }
 

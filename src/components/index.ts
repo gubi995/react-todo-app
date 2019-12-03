@@ -6,5 +6,19 @@ import { Button } from './Button';
 import { Icon } from './Icon';
 import { Input } from './Input';
 import { InputWithLabel } from './InputWithLabel';
+import { PriorityOptions, SubTask, SubTaskList, SubTaskControlButtons } from './TodoForm';
 
-export { NavigationBar, RoutesWrapper, LoadingIndicator, CreateTodoButton, Button, Icon, Input, InputWithLabel };
+export {
+  NavigationBar,
+  RoutesWrapper,
+  LoadingIndicator,
+  CreateTodoButton,
+  Button,
+  Icon,
+  Input,
+  InputWithLabel,
+  PriorityOptions,
+  SubTask,
+  SubTaskList,
+  SubTaskControlButtons,
+};

@@ -14,6 +14,11 @@
     background: #20b2ab2f;
   }
 
+  &:disabled {
+    background: #0000001c;
+    cursor: default;
+  }
+
   &.rounded {
     border-radius: 50%;
     padding: 0.5em;
@@ -25,6 +30,11 @@
 
     &:active {
       background: #1a948e;
+    }
+
+    &:disabled {
+      background: #20b2aa8f;
+      cursor: default;
     }
   }
 }

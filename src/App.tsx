@@ -2,7 +2,7 @@ import React from 'react';
 
 import { NavigationBar, RoutesWrapper, CreateTodoButton } from './components';
 
-const App: React.FC = () => {
+function App() {
   return (
     <div>
       <NavigationBar />
@@ -16,6 +16,6 @@ const App: React.FC = () => {
       </footer>
     </div>
   );
-};
+}
 
 export default App;

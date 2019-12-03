@@ -1,0 +1,10 @@
+.SubTaskList {
+  display: flex;
+  overflow: auto;
+  width: 290px;
+  scroll-snap-type: inline mandatory;
+}
+
+.NoSubTaskHeading {
+  width: 290px;
+}

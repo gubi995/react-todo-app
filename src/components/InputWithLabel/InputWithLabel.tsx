@@ -1,14 +1,23 @@
-import React from 'react';
+import React, { HTMLProps } from 'react';
+
+import { useField } from 'formik';
 
 import { Input } from '../Input';
 
 import classes from './InputWithLabel.module.scss';
 
-function InputWithLabel({ labelProps, inputProps }: { labelProps: any; inputProps: any }) {
+interface Props extends HTMLProps<HTMLInputElement> {
+  label: string;
+}
+
+function InputWithLabel({ label, ...props }: Props) {
+  const [field, meta] = useField(props.name!);
+
   return (
     <div className={classes.InputWithLabel}>
-      <label className={classes.Label} {...labelProps} />
-      <Input {...inputProps} />
+      <label className={classes.Label}>{label}</label>
+      <Input {...field} {...props} />
+      {meta.touched && meta.error ? <div className={classes.Error}>{meta.error}</div> : null}
     </div>
   );
 }

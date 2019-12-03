@@ -3,8 +3,8 @@ export interface ITodo {
   priority: Priority;
   deadline: string;
   completed: boolean;
-  assignee: IAssignee | null;
-  subTasks: SubTask[];
+  assignee: IAssignee;
+  subTasks: ISubTask[];
 }
 
 export interface IAssignee {
@@ -12,7 +12,7 @@ export interface IAssignee {
   email: string;
 }
 
-export interface SubTask {
+export interface ISubTask {
   title: string;
   completed: boolean;
 }
