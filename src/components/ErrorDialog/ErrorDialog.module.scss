@@ -1,0 +1,23 @@
+.ErrorDialog {
+  display: flex;
+  flex-direction: column;
+  border: 3px solid lightseagreen;
+  border-radius: 5px;
+  background: white;
+  color: lightseagreen;
+  font-size: large;
+  font-weight: bold;
+  width: 300px;
+  padding: 2em;
+}
+
+.Backdrop {
+  position: fixed;
+  background-color: #00000029;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 500;
+  width: 100%;
+  height: 100%;
+}

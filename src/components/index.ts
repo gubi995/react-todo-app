@@ -7,6 +7,7 @@ import { Icon } from './Icon';
 import { Input } from './Input';
 import { InputWithLabel } from './InputWithLabel';
 import { PriorityOptions, SubTask, SubTaskList, SubTaskControlButtons } from './TodoForm';
+import { GeneralErrorBoundary } from './GeneralErrorBoundary';
 
 export {
   NavigationBar,
@@ -21,4 +22,5 @@ export {
   SubTask,
   SubTaskList,
   SubTaskControlButtons,
+  GeneralErrorBoundary,
 };
