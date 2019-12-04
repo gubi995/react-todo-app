@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import todoMockService from '../../services/todo-mock-service';
 
-function BoardPage(): any {
+function BoardPage() {
+  useEffect(() => {
+    todoMockService.findAll().then(console.log);
+  }, []);
+
   return <div>BoardPage</div>;
 }
 

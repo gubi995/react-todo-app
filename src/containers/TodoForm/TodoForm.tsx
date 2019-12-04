@@ -8,6 +8,7 @@ import initialValues from './initial-values';
 import validationSchema from './validation-schema';
 
 import classes from './TodoForm.module.scss';
+import todoService from '../../services/todo-mock-service';
 
 function TodoForm() {
   const subTaskListRef: RefObject<HTMLDivElement> = useRef(null);
@@ -23,12 +24,10 @@ function TodoForm() {
     }
   };
 
-  const onSubmit = (values: ITodo, { setSubmitting, resetForm }: FormikHelpers<ITodo>) => {
-    setTimeout(() => {
-      console.log(values);
-      setSubmitting(false);
-      resetForm();
-    }, 2000);
+  const onSubmit = async (values: ITodo, { setSubmitting, resetForm }: FormikHelpers<ITodo>) => {
+    await todoService.save(values);
+    setSubmitting(false);
+    resetForm();
   };
 
   const onReset = (values: ITodo, { resetForm }: FormikHelpers<ITodo>) => {
