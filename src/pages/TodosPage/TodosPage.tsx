@@ -1,7 +1,30 @@
 import React from 'react';
 
+import { TodoList } from '../../components';
+import { ITodo, Priority } from '../../models/todo.model';
+
 function TodosPage() {
-  return <div>TodosPage</div>;
+  const todo: ITodo = {
+    id: 0,
+    title: 'Do this and that',
+    completed: false,
+    deadline: new Date().toLocaleDateString('en-CA'),
+    assignee: { name: 'Adrian Gruber', email: 'adrian@gmail.com' },
+    priority: Priority.HIGH,
+    subTasks: [
+      { title: 'Call the police', completed: false },
+      { title: 'Tidy up', completed: true },
+      { title: 'Wash the dishes', completed: false },
+      { title: 'Buy a bread', completed: true },
+      { title: 'Finish up this feature', completed: false },
+    ],
+  };
+
+  return (
+    <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <TodoList todos={[todo, todo, todo]} />
+    </div>
+  );
 }
 
 export default TodosPage;

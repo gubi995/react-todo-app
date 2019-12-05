@@ -8,6 +8,8 @@ import { Input } from './Input';
 import { InputWithLabel } from './InputWithLabel';
 import { PriorityOptions, SubTask, SubTaskList, SubTaskControlButtons } from './TodoForm';
 import { GeneralErrorBoundary } from './GeneralErrorBoundary';
+import { TodoList } from './TodoList';
+import { TodoListItem } from './TodoListItem';
 
 export {
   NavigationBar,
@@ -23,4 +25,6 @@ export {
   SubTaskList,
   SubTaskControlButtons,
   GeneralErrorBoundary,
+  TodoList,
+  TodoListItem,
 };
