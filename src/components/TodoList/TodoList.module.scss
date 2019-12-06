@@ -1,8 +1,15 @@
 .TodoList {
   display: flex;
   flex-direction: column;
+  flex-basis: 90%;
 }
 
 .NothingToShow {
   margin: 1em;
+}
+
+@media (min-width: 600px) {
+  .TodoList {
+    flex-basis: 70%;
+  }
 }

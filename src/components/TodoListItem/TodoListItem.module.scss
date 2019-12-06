@@ -1,5 +1,4 @@
 .TodoListItem {
-  flex-basis: 70%;
   padding: 1em;
   margin: 1em;
   border: 5px solid lightseagreen;
@@ -34,21 +33,27 @@
 
 .SubTaskContainer {
   display: flex;
+  flex-direction: column;
   flex-wrap: nowrap;
-
-  & > :first-child {
-    margin-left: 0;
-  }
-
-  & > :last-child {
-    margin-right: 0;
-  }
+  overflow: auto;
+  max-height: 100px;
 }
 
 .SubTask {
-  margin: 10px;
+  margin: 10px 0;
   background: turquoise;
   border-radius: 5px;
   padding: 5px;
   font-weight: 500;
+  white-space: nowrap;
+}
+
+@media (min-width: 600px) {
+  .SubTaskContainer {
+    flex-direction: row;
+    flex-wrap: wrap;
+    overflow: hidden;
+    max-height: none;
+    justify-content: space-evenly;
+  }
 }

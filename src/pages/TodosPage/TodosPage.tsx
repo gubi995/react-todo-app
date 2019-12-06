@@ -22,7 +22,7 @@ function TodosPage() {
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
-      <TodoList todos={[todo, todo, todo]} />
+      <TodoList todos={[todo]} />
     </div>
   );
 }
