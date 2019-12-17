@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useEffect } from 'react';
 import todoMockService from '../../services/todo-mock-service';
 

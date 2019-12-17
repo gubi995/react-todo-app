@@ -1,7 +1,8 @@
 import React from 'react';
 
 import { TodoList } from '../../components';
-import { ITodo, Priority } from '../../models/todo.model';
+import { ITodo } from '../../models/todo.model';
+import Priority from '../../models/priority.enum';
 
 function TodosPage() {
   const todo: ITodo = {

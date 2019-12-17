@@ -19,7 +19,7 @@ function Button({ primary, rounded, ...rest }: Props) {
     buttonStyle.push(classes.rounded);
   }
 
-  return <button className={buttonStyle.join(' ')} {...rest} />;
+  return <button type="button" className={buttonStyle.join(' ')} {...rest} />;
 }
 
 export default Button;

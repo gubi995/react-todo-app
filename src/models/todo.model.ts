@@ -1,3 +1,5 @@
+import Priority from './priority.enum';
+
 export interface ITodo {
   id: number;
   title: string;
@@ -16,10 +18,4 @@ export interface IAssignee {
 export interface ISubTask {
   title: string;
   completed: boolean;
-}
-
-export enum Priority {
-  HIGH = 'High',
-  NORMAL = 'Normal',
-  LOW = 'Low',
 }

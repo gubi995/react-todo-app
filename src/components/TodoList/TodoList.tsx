@@ -14,12 +14,13 @@ function TodoList({ todos }: Props) {
   let componentToRender;
 
   if (todos && todos.length > 0) {
-    componentToRender = todos.map(todo => <TodoListItem todo={todo} key={todo.id} />);
+    componentToRender = todos.map((todo) => <TodoListItem todo={todo} key={todo.id} />);
   } else {
     componentToRender = (
       <h2 className={classes.NothingToShow}>
-        Seems like currently you have nothing to do. Create task by clicking the{' '}
-        <Icon ariaLabel="plus-emoji" icon="➕" /> button in the right-bottom corner. Stay motivated and be productive.
+        <span>Seems like currently you have nothing to do. Create task by clicking the </span>
+        <Icon ariaLabel="plus-emoji" icon="➕" />
+        <span> button in the right-bottom corner. Stay motivated and be productive.</span>
         <Icon ariaLabel="wizard-emoji" icon="🧙🏿‍♂️" />
       </h2>
     );

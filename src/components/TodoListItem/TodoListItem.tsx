@@ -1,7 +1,8 @@
 import React from 'react';
 
 import { Icon } from '../Icon';
-import { ITodo, Priority } from '../../models/todo.model';
+import { ITodo } from '../../models/todo.model';
+import Priority from '../../models/priority.enum';
 
 import classes from './TodoListItem.module.scss';
 
@@ -17,12 +18,14 @@ const getPriorityIcon = (priority: Priority) => {
       return <Icon ariaLabel="task-priority" icon="🟠" />;
     case Priority.LOW:
       return <Icon ariaLabel="task-priority" icon="🟢" />;
+    default:
+      return null;
   }
 };
 
-const getCompletedIcon = (completed: boolean) => {
-  return <Icon ariaLabel={completed ? 'task-completed' : 'task-uncompleted'} icon={completed ? '🌞' : '🌚'} />;
-};
+const getCompletedIcon = (completed: boolean) => (
+  <Icon ariaLabel={completed ? 'task-completed' : 'task-uncompleted'} icon={completed ? '🌞' : '🌚'} />
+);
 
 function TodoListItem({ todo }: Props) {
   return (
@@ -36,9 +39,10 @@ function TodoListItem({ todo }: Props) {
         </div>
       </div>
       <div className={classes.SubTaskContainer}>
-        {todo.subTasks.map(subTask => (
+        {todo.subTasks.map((subTask) => (
           <span className={classes.SubTask} key={subTask.title}>
-            {subTask.title} {subTask.completed ? '🌞' : '🌚'}
+            {subTask.title}
+            {subTask.completed ? '🌞' : '🌚'}
           </span>
         ))}
       </div>

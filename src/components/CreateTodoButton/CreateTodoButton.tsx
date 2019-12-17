@@ -15,9 +15,7 @@ function CreateTodoButton() {
     history.push(CREATE_TODO_PAGE);
   };
 
-  const isCreateTodoPage = () => {
-    return !!(location.pathname && !location.pathname.includes(CREATE_TODO_PAGE));
-  };
+  const isCreateTodoPage = () => !!(location.pathname && !location.pathname.includes(CREATE_TODO_PAGE));
 
   const animation = useSpring({
     to: { opacity: 1 },
@@ -28,7 +26,7 @@ function CreateTodoButton() {
 
   return (
     <animated.div style={animation}>
-      <button className={classes.CreateTodoButton} onClick={navigateToCreateTodoPage}>
+      <button type="button" className={classes.CreateTodoButton} onClick={navigateToCreateTodoPage}>
         <span role="img" aria-label="create-todo">
           ➕
         </span>

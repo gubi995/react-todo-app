@@ -2,11 +2,13 @@ import { ITodoService } from './todo-service.interface';
 import { ITodo } from '../models/todo.model';
 
 const sleep = (ms: number) => {
-  return new Promise((res, rej) => {
+  const scheduler = new Promise((res, rej) => {
     setTimeout(() => {
       res();
     }, ms);
   });
+
+  return scheduler;
 };
 
 class TodoMockService implements ITodoService {
@@ -21,7 +23,7 @@ class TodoMockService implements ITodoService {
   async find(id: number): Promise<ITodo | undefined> {
     await sleep(2000);
 
-    return this.todos.find(todo => todo.id === id);
+    return this.todos.find((todo) => todo.id === id);
   }
 
   async save(todo: ITodo): Promise<void> {
@@ -33,7 +35,7 @@ class TodoMockService implements ITodoService {
   async delete(id: number): Promise<void> {
     await sleep(2000);
 
-    this.todos = this.todos.filter(todo => todo.id !== id);
+    this.todos = this.todos.filter((todo) => todo.id !== id);
   }
 }
 

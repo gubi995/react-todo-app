@@ -23,7 +23,7 @@ const SubTaskList = React.forwardRef(({ subTaskList, onRemove }: Props, ref: Rea
     );
   } else {
     componentToRender = (
-      <h4 className={classes.NoSubTaskHeading}>You have no sub-task. Let's create one, shall we? </h4>
+      <h4 className={classes.NoSubTaskHeading}>You have no sub-task. Let&apos; s create one, shall we? </h4>
     );
   }
 

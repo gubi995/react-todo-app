@@ -12,19 +12,25 @@ const PageNotFound = React.lazy(() => import('../../pages/PageNotFound/PageNotFo
 
 function RoutesWrapper() {
   const location = useLocation();
-  const transitions = useTransition(location, location => location.pathname, {
+  const transitions = useTransition(location, (loc) => loc.pathname, {
     initial: null,
     from: { opacity: 0, transform: 'translate3d(100%,0,0)' },
     enter: { opacity: 1, transform: 'translate3d(0%,0,0)' },
-    leave: { opacity: 0, transform: 'translate3d(-50%,0,0)', width: '100%', position: 'absolute', zIndex: -1 },
+    leave: {
+      opacity: 0,
+      transform: 'translate3d(-50%,0,0)',
+      width: '100%',
+      position: 'absolute',
+      zIndex: -1,
+    },
   });
 
   return (
     <>
-      {transitions.map(({ item: location, props, key }) => (
+      {transitions.map(({ item, props, key }) => (
         <animated.div key={key} style={props}>
           <Suspense fallback={<LoadingIndicator />}>
-            <Switch location={location}>
+            <Switch location={item}>
               <Route path="/" exact>
                 <Redirect to="/todos" />
               </Route>

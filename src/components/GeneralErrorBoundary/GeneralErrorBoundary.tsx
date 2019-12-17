@@ -1,8 +1,18 @@
+/* eslint-disable no-console */
 import React, { Component } from 'react';
 
 import { ErrorDialog } from '../ErrorDialog';
 
-export class GeneralErrorBoundary extends Component {
+interface Props {
+  children: any;
+}
+
+interface State {
+  hasError: boolean;
+  error: string;
+}
+
+export class GeneralErrorBoundary extends Component<Props, State> {
   state = { hasError: false, error: '' };
 
   static getDerivedStateFromError(error: any) {
@@ -15,11 +25,14 @@ export class GeneralErrorBoundary extends Component {
   }
 
   render() {
-    if (this.state.hasError) {
-      return <ErrorDialog message={this.state.error!} />;
+    const { hasError, error } = this.state;
+    const { children } = this.props;
+
+    if (hasError) {
+      return <ErrorDialog message={error!} />;
     }
 
-    return this.props.children;
+    return children;
   }
 }
 

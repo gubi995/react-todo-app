@@ -43,51 +43,50 @@ function TodoForm() {
       novalidate
       autocomplete="off"
     >
-      {({ values, isSubmitting }: FormikState<ITodo>) => {
-        return (
-          <Form className={classes.TodoForm}>
-            <h3 className={classes.Heading}>
-              TODO <Icon ariaLabel="page-not-found-icon" icon="✍" />
-            </h3>
+      {({ values, isSubmitting }: FormikState<ITodo>) => (
+        <Form className={classes.TodoForm}>
+          <h3 className={classes.Heading}>
+            TODO
+            <Icon ariaLabel="page-not-found-icon" icon="✍" />
+          </h3>
 
-            <div className={classes.FieldsContainer}>
-              <div>
-                <h5>Task info</h5>
-                <InputWithLabel name="title" label="Title" />
-                <InputWithLabel type="select" name="priority" label="Priority">
-                  <PriorityOptions />
-                </InputWithLabel>
-                <InputWithLabel type="date" name="deadline" label="Deadline" />
-                <InputWithLabel type="checkbox" name="completed" label="Completed" />
-                <h5>Assignee</h5>
-                <InputWithLabel name="assignee.name" label="Name" />
-                <InputWithLabel type="email" name="assignee.email" label="Email" />
-              </div>
-
-              <div className={classes.SubTaskContainer}>
-                <FieldArray name="subTasks">
-                  {({ remove, insert }: ArrayHelpers) => (
-                    <>
-                      <SubTaskList subTaskList={values.subTasks} ref={subTaskListRef} onRemove={remove} />
-                      <SubTaskControlButtons
-                        addSubTask={() => insert(0, { title: '', completed: false })}
-                        handleScroll={scrollHandler}
-                      />
-                    </>
-                  )}
-                </FieldArray>
-              </div>
+          <div className={classes.FieldsContainer}>
+            <div>
+              <h5>Task info</h5>
+              <InputWithLabel name="title" label="Title" />
+              <InputWithLabel type="select" name="priority" label="Priority">
+                <PriorityOptions />
+              </InputWithLabel>
+              <InputWithLabel type="date" name="deadline" label="Deadline" />
+              <InputWithLabel type="checkbox" name="completed" label="Completed" />
+              <h5>Assignee</h5>
+              <InputWithLabel name="assignee.name" label="Name" />
+              <InputWithLabel type="email" name="assignee.email" label="Email" />
             </div>
 
-            <div className={classes.ButtonsContainer}>
-              <Button type="reset">Reset</Button>
-              <Button type="submit" primary disabled={isSubmitting}>
-                Save
-              </Button>
+            <div className={classes.SubTaskContainer}>
+              <FieldArray name="subTasks">
+                {({ remove, insert }: ArrayHelpers) => (
+                  <>
+                    <SubTaskList subTaskList={values.subTasks} ref={subTaskListRef} onRemove={remove} />
+                    <SubTaskControlButtons
+                      addSubTask={() => insert(0, { title: '', completed: false })}
+                      handleScroll={scrollHandler}
+                    />
+                  </>
+                )}
+              </FieldArray>
             </div>
-          </Form>
-        );
-      }}
+          </div>
+
+          <div className={classes.ButtonsContainer}>
+            <Button type="reset">Reset</Button>
+            <Button type="submit" primary disabled={isSubmitting}>
+              Save
+            </Button>
+          </div>
+        </Form>
+      )}
     </Formik>
   );
 }

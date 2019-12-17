@@ -7,7 +7,7 @@ function App() {
     <div>
       <NavigationBar />
       <GeneralErrorBoundary>
-        <main>
+        <main style={{ overflowX: 'hidden' }}>
           <RoutesWrapper />
         </main>
 

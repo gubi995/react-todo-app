@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Priority } from '../../../models/todo.model';
+import Priority from '../../../models/priority.enum';
 
 function PriorityOptions() {
   return (
