@@ -3,7 +3,7 @@ import React, { useRef, RefObject } from 'react';
 import { Formik, Form, FormikState, FormikHelpers, FieldArray, ArrayHelpers } from 'formik';
 
 import { Icon, Button, InputWithLabel, PriorityOptions, SubTaskList, SubTaskControlButtons } from '../../components';
-import { ITodo } from '../../models/todo.model';
+import { ITodo, ISubTask } from '../../models/todo.model';
 import todoService from '../../services/todo-firebase-service';
 import initialValues from './initial-values';
 import validationSchema from './validation-schema';
@@ -13,15 +13,35 @@ import classes from './TodoForm.module.scss';
 function TodoForm() {
   const subTaskListRef: RefObject<HTMLDivElement> = useRef(null);
 
-  const scrollHandler = (direction: string) => {
+  const scrollIfElementPresent = (getScrollOptions: (el: HTMLDivElement) => ScrollToOptions) => {
     const subTaskListEl = subTaskListRef.current;
 
     if (subTaskListEl) {
-      subTaskListEl.scrollTo({
-        left: direction === 'right' ? subTaskListEl.scrollLeft + 250 : subTaskListEl.scrollLeft - 250,
-        behavior: 'smooth',
-      });
+      subTaskListEl.scrollTo(getScrollOptions(subTaskListEl));
     }
+  };
+
+  const scrollHandler = (direction: string) => {
+    scrollIfElementPresent((el: HTMLDivElement) => {
+      const scrollOptions = {
+        left: direction === 'right' ? el.scrollLeft + 250 : el.scrollLeft - 250,
+        behavior: 'smooth',
+      } as ScrollToOptions;
+
+      return scrollOptions;
+    });
+  };
+
+  const addSubTaskHandler = (push: (subTask: ISubTask) => void) => {
+    push({ title: '', completed: false });
+
+    setTimeout(() => {
+      scrollIfElementPresent((el: HTMLDivElement) => {
+        const scrollOptions = { left: el.scrollWidth, behavior: 'smooth' } as ScrollToOptions;
+
+        return scrollOptions;
+      });
+    }, 0);
   };
 
   const onSubmit = async (values: ITodo, { setSubmitting, resetForm }: FormikHelpers<ITodo>) => {
@@ -66,13 +86,10 @@ function TodoForm() {
 
             <div className={classes.SubTaskContainer}>
               <FieldArray name="subTasks">
-                {({ remove, insert }: ArrayHelpers) => (
+                {({ remove, push }: ArrayHelpers) => (
                   <>
                     <SubTaskList subTaskList={values.subTasks} ref={subTaskListRef} onRemove={remove} />
-                    <SubTaskControlButtons
-                      addSubTask={() => insert(0, { title: '', completed: false })}
-                      handleScroll={scrollHandler}
-                    />
+                    <SubTaskControlButtons addSubTask={() => addSubTaskHandler(push)} handleScroll={scrollHandler} />
                   </>
                 )}
               </FieldArray>
