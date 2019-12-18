@@ -1,25 +1,38 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { TodoListItem } from './TodoListItem';
 import { ITodo } from '../../models/todo.model';
 import { EmptyTodoList } from './EmptyTodoList';
+import todoService from '../../services/todo-firebase-service';
 
 import classes from './TodoList.module.scss';
 
-interface Props {
-  todos: ITodo[];
-}
+function TodoList() {
+  const [todos, setTodos] = useState<ITodo[]>([]);
+  const [loading, setLoading] = useState(false);
 
-function TodoList({ todos }: Props) {
-  let componentToRender;
+  useEffect(() => {
+    setLoading(true);
 
-  if (todos && todos.length > 0) {
-    componentToRender = todos.map((todo) => <TodoListItem todo={todo} key={todo.id} />);
-  } else {
-    componentToRender = <EmptyTodoList />;
+    todoService.findAll().then((fetchedTodos: ITodo[]) => {
+      setTodos(fetchedTodos);
+      setLoading(false);
+    });
+  }, []);
+
+  if (loading) {
+    return <h2>Loading...</h2>;
   }
 
-  return <div className={classes.TodoList}>{componentToRender}</div>;
+  let component;
+
+  if (todos && todos.length > 0) {
+    component = todos.map((todo) => <TodoListItem todo={todo} key={todo.id} />);
+  } else {
+    component = <EmptyTodoList />;
+  }
+
+  return <div className={classes.TodoList}>{component}</div>;
 }
 
 export default TodoList;

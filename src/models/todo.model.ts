@@ -1,7 +1,7 @@
 import Priority from './priority.enum';
 
 export interface ITodo {
-  id: number;
+  id: string;
   title: string;
   priority: Priority;
   deadline: string;

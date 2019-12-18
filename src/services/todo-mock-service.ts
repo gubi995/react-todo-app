@@ -20,7 +20,7 @@ class TodoMockService implements ITodoService {
     return this.todos;
   }
 
-  async find(id: number): Promise<ITodo | undefined> {
+  async find(id: string): Promise<ITodo | undefined> {
     await sleep(2000);
 
     return this.todos.find((todo) => todo.id === id);
@@ -32,7 +32,7 @@ class TodoMockService implements ITodoService {
     this.todos.push(todo);
   }
 
-  async delete(id: number): Promise<void> {
+  async delete(id: string): Promise<void> {
     await sleep(2000);
 
     this.todos = this.todos.filter((todo) => todo.id !== id);

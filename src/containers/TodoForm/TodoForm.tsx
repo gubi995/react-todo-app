@@ -4,11 +4,11 @@ import { Formik, Form, FormikState, FormikHelpers, FieldArray, ArrayHelpers } fr
 
 import { Icon, Button, InputWithLabel, PriorityOptions, SubTaskList, SubTaskControlButtons } from '../../components';
 import { ITodo } from '../../models/todo.model';
+import todoService from '../../services/todo-firebase-service';
 import initialValues from './initial-values';
 import validationSchema from './validation-schema';
 
 import classes from './TodoForm.module.scss';
-import todoService from '../../services/todo-mock-service';
 
 function TodoForm() {
   const subTaskListRef: RefObject<HTMLDivElement> = useRef(null);
