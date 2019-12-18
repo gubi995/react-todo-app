@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { InputWithLabel } from '../../InputWithLabel';
+import { InputWithLabel } from '../../Inputs/InputWithLabel';
 import { Icon } from '../../Icon';
 
 import classes from './SubTask.module.scss';

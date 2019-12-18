@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button } from '../../Button';
+import { Button } from '../../Buttons/Button';
 import { Icon } from '../../Icon';
 
 import classes from './SubTaskControlButtons.module.scss';

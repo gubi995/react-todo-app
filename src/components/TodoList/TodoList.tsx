@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { TodoListItem } from '../TodoListItem';
-import { Icon } from '../Icon';
+import { TodoListItem } from './TodoListItem';
 import { ITodo } from '../../models/todo.model';
+import { EmptyTodoList } from './EmptyTodoList';
 
 import classes from './TodoList.module.scss';
 
@@ -16,14 +16,7 @@ function TodoList({ todos }: Props) {
   if (todos && todos.length > 0) {
     componentToRender = todos.map((todo) => <TodoListItem todo={todo} key={todo.id} />);
   } else {
-    componentToRender = (
-      <h2 className={classes.NothingToShow}>
-        <span>Seems like currently you have nothing to do. Create task by clicking the </span>
-        <Icon ariaLabel="plus-emoji" icon="➕" />
-        <span> button in the right-bottom corner. Stay motivated and be productive.</span>
-        <Icon ariaLabel="wizard-emoji" icon="🧙🏿‍♂️" />
-      </h2>
-    );
+    componentToRender = <EmptyTodoList />;
   }
 
   return <div className={classes.TodoList}>{componentToRender}</div>;

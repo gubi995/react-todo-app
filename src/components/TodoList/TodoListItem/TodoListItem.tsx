@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Icon } from '../Icon';
-import { ITodo } from '../../models/todo.model';
-import Priority from '../../models/priority.enum';
+import { Icon } from '../../Icon';
+import { ITodo } from '../../../models/todo.model';
+import Priority from '../../../models/priority.enum';
 
 import classes from './TodoListItem.module.scss';
 
