@@ -1,6 +1,8 @@
 import React, { useRef, RefObject } from 'react';
 
-import { Formik, Form, FormikState, FormikHelpers, FieldArray, ArrayHelpers } from 'formik';
+import { Formik, Form, FormikHelpers, FieldArray, ArrayHelpers, FormikProps } from 'formik';
+
+import { Prompt } from 'react-router';
 
 import { Icon, Button, InputWithLabel, PriorityOptions, SubTaskList, SubTaskControlButtons } from '../../components';
 import { ITodo, ISubTask } from '../../models/todo.model';
@@ -63,8 +65,10 @@ function TodoForm() {
       novalidate
       autocomplete="off"
     >
-      {({ values, isSubmitting }: FormikState<ITodo>) => (
+      {({ values, isSubmitting, dirty }: FormikProps<ITodo>) => (
         <Form className={classes.TodoForm}>
+          <Prompt when={dirty} message="The TODO is not saved and will be lost. Are you sure to continue?" />
+
           <h3 className={classes.Heading}>
             TODO
             <Icon ariaLabel="page-not-found-icon" icon="✍" />
