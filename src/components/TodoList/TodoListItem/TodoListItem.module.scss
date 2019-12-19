@@ -4,6 +4,13 @@
   border: 5px solid lightseagreen;
   border-radius: 5px;
   cursor: pointer;
+  transition: box-shadow 0.3s ease;
+
+  &:focus,
+  &:hover {
+    outline: none;
+    box-shadow: 6px 6px 1px #ccc;
+  }
 }
 
 .Header {

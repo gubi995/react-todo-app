@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { KeyboardEvent } from 'react';
+
+import { useHistory } from 'react-router';
 
 import { Icon } from '../../Icon';
 import { ITodo } from '../../../models/todo.model';
@@ -28,8 +30,28 @@ const getCompletedIcon = (completed: boolean) => (
 );
 
 function TodoListItem({ todo }: Props) {
+  const history = useHistory();
+
+  const navigateToEditPage = () => {
+    history.push(`/todo/edit/${todo.id}`);
+  };
+
+  const handleKeyPress = (event: KeyboardEvent) => {
+    const ENTER = 13;
+
+    if (event.keyCode === ENTER) {
+      navigateToEditPage();
+    }
+  };
+
   return (
-    <div className={classes.TodoListItem}>
+    <div
+      className={classes.TodoListItem}
+      onClick={navigateToEditPage}
+      onKeyDown={handleKeyPress}
+      role="button"
+      tabIndex={0}
+    >
       <div className={classes.Header}>
         <span className={classes.HeaderTitle}>{todo.title}</span>
         <div className={classes.HeaderInfo}>
