@@ -25,8 +25,8 @@ function CreateTodoButton() {
   };
 
   const animation = useSpring({
-    to: { opacity: 1, 'pointer-events': 'auto' },
-    from: { opacity: 0, 'pointer-events': 'none' },
+    to: { opacity: 1, pointerEvents: 'auto' },
+    from: { opacity: 0, pointerEvents: 'none' },
     reverse: isHidden(),
     reset: isHidden(),
   });
