@@ -1,8 +1,9 @@
 .TodoForm {
   display: flex;
   flex-direction: column;
-  border: 3px solid lightseagreen;
-  padding: 1em;
+  flex-basis: 80%;
+  border: none;
+  padding: unset;
   margin: 1em;
   border-radius: 5px;
 }
@@ -28,12 +29,31 @@
 
 .ButtonsContainer {
   display: flex;
+  flex-direction: column-reverse;
   justify-content: space-evenly;
   margin-top: 1em;
+
+  & > * {
+    margin: 5px 0;
+  }
 }
 
 @media (min-width: 600px) {
   .FieldsContainer {
     flex-direction: row;
+  }
+
+  .ButtonsContainer {
+    flex-direction: row;
+
+    & > * {
+      margin: none;
+    }
+  }
+
+  .TodoForm {
+    flex-basis: unset;
+    border: 3px solid lightseagreen;
+    padding: 1em;
   }
 }

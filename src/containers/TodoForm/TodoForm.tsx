@@ -12,7 +12,11 @@ import validationSchema from './validation-schema';
 
 import classes from './TodoForm.module.scss';
 
-function TodoForm() {
+interface Props {
+  todo?: ITodo;
+}
+
+function TodoForm({ todo }: Props) {
   const subTaskListRef: RefObject<HTMLDivElement> = useRef(null);
 
   const scrollIfElementPresent = (getScrollOptions: (el: HTMLDivElement) => ScrollToOptions) => {
@@ -58,7 +62,7 @@ function TodoForm() {
 
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={todo || initialValues}
       onSubmit={onSubmit}
       onReset={onReset}
       validationSchema={validationSchema}
@@ -101,7 +105,12 @@ function TodoForm() {
           </div>
 
           <div className={classes.ButtonsContainer}>
-            <Button type="reset">Reset</Button>
+            <Button type="button" hidden={Boolean(!todo)}>
+              Delete
+            </Button>
+            <Button type="reset" hidden={Boolean(todo)}>
+              Reset
+            </Button>
             <Button type="submit" primary disabled={isSubmitting}>
               Save
             </Button>

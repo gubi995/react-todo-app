@@ -8,6 +8,7 @@ import { LoadingIndicator } from '../LoadingIndicator';
 const BoardPage = React.lazy(() => import('../../pages/BoardPage/BoardPage'));
 const TodosPage = React.lazy(() => import('../../pages/TodosPage/TodosPage'));
 const CreateTodoPage = React.lazy(() => import('../../pages/CreateTodoPage/CreateTodoPage'));
+const EditTodoPage = React.lazy(() => import('../../pages/EditTodoPage/EditTodoPage'));
 const PageNotFound = React.lazy(() => import('../../pages/PageNotFound/PageNotFound'));
 
 function RoutesWrapper() {
@@ -42,6 +43,9 @@ function RoutesWrapper() {
               </Route>
               <Route path="/todo/create">
                 <CreateTodoPage />
+              </Route>
+              <Route path="/todo/edit/:id">
+                <EditTodoPage />
               </Route>
               <Route path="*">
                 <PageNotFound />
