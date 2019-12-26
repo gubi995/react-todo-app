@@ -16,8 +16,8 @@ const SubTaskList = React.forwardRef(({ subTaskList, onRemove }: Props, ref: Rea
   if (subTaskList && subTaskList.length > 0) {
     componentToRender = (
       <div className={classes.SubTaskList} ref={ref}>
-        {subTaskList.map((_, index: number) => (
-          <SubTask key={index} index={index} onRemove={() => onRemove(index)} />
+        {subTaskList.map((subTask, index: number) => (
+          <SubTask key={index} subTask={subTask} index={index} onRemove={() => onRemove(index)} />
         ))}
       </div>
     );

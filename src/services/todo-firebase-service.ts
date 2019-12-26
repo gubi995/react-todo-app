@@ -31,7 +31,7 @@ class TodoFirebaseService implements ITodoService {
 
   async save(todo: ITodo): Promise<void> {
     if (todo.id) {
-      this.todoDb.doc(todo.id).update(todo);
+      this.todoDb.doc(todo.id).set(todo);
     } else {
       const newTodoRef = this.todoDb.doc();
 

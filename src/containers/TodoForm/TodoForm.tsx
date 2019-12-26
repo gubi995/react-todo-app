@@ -2,7 +2,7 @@ import React, { useRef, RefObject } from 'react';
 
 import { Formik, Form, FormikHelpers, FieldArray, ArrayHelpers, FormikProps } from 'formik';
 
-import { Prompt } from 'react-router';
+import { Prompt, useHistory } from 'react-router';
 
 import { Icon, Button, InputWithLabel, PriorityOptions, SubTaskList, SubTaskControlButtons } from '../../components';
 import { ITodo, ISubTask } from '../../models/todo.model';
@@ -18,6 +18,7 @@ interface Props {
 
 function TodoForm({ todo }: Props) {
   const subTaskListRef: RefObject<HTMLDivElement> = useRef(null);
+  const history = useHistory();
 
   const scrollIfElementPresent = (getScrollOptions: (el: HTMLDivElement) => ScrollToOptions) => {
     const subTaskListEl = subTaskListRef.current;
@@ -52,8 +53,11 @@ function TodoForm({ todo }: Props) {
 
   const onSubmit = async (values: ITodo, { setSubmitting, resetForm }: FormikHelpers<ITodo>) => {
     await todoService.save(values);
+
     setSubmitting(false);
     resetForm();
+
+    history.push('/todos');
   };
 
   const onReset = (values: ITodo, { resetForm }: FormikHelpers<ITodo>) => {
@@ -86,7 +90,7 @@ function TodoForm({ todo }: Props) {
                 <PriorityOptions />
               </InputWithLabel>
               <InputWithLabel type="date" name="deadline" label="Deadline" />
-              <InputWithLabel type="checkbox" name="completed" label="Completed" />
+              <InputWithLabel type="checkbox" checked={todo?.completed || false} name="completed" label="Completed" />
               <h5>Assignee</h5>
               <InputWithLabel name="assignee.name" label="Name" />
               <InputWithLabel type="email" name="assignee.email" label="Email" />
