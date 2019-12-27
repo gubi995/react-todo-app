@@ -51,6 +51,14 @@ function TodoForm({ todo }: Props) {
     }, 0);
   };
 
+  const deleteTodoHandler = async () => {
+    if (todo) {
+      await todoService.delete(todo.id);
+
+      history.push('/todos');
+    }
+  };
+
   const onSubmit = async (values: ITodo, { setSubmitting, resetForm }: FormikHelpers<ITodo>) => {
     await todoService.save(values);
 
@@ -109,7 +117,7 @@ function TodoForm({ todo }: Props) {
           </div>
 
           <div className={classes.ButtonsContainer}>
-            <Button type="button" hidden={Boolean(!todo)}>
+            <Button type="button" hidden={Boolean(!todo)} onClick={deleteTodoHandler}>
               Delete
             </Button>
             <Button type="reset" hidden={Boolean(todo)}>

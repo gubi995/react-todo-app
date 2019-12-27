@@ -31,16 +31,16 @@ class TodoFirebaseService implements ITodoService {
 
   async save(todo: ITodo): Promise<void> {
     if (todo.id) {
-      this.todoDb.doc(todo.id).set(todo);
-    } else {
-      const newTodoRef = this.todoDb.doc();
-
-      this.todoDb.add({ ...todo, id: newTodoRef.id });
+      return this.todoDb.doc(todo.id).set(todo);
     }
+
+    const newTodoRef = this.todoDb.doc();
+
+    return newTodoRef.set({ ...todo, id: newTodoRef.id });
   }
 
   async delete(id: string): Promise<void> {
-    this.todoDb.doc(id).delete();
+    return this.todoDb.doc(id).delete();
   }
 }
 
