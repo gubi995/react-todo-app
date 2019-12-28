@@ -1,0 +1,24 @@
+.FacebookButton {
+  display: flex;
+  box-sizing: border-box;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #4267b2;
+  color: #fff;
+  border-radius: 3px;
+  padding: 0.5em;
+  font-size: 1em;
+  font-weight: bold;
+  white-space: nowrap;
+  cursor: pointer;
+
+  .Logo {
+    height: 20px;
+    margin: 0px 5px;
+  }
+
+  &:hover {
+    background-color: #4267b2db;
+  }
+}

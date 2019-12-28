@@ -78,11 +78,9 @@ function TodoForm({ todo }: Props) {
       onSubmit={onSubmit}
       onReset={onReset}
       validationSchema={validationSchema}
-      novalidate
-      autocomplete="off"
     >
       {({ values, isSubmitting, dirty }: FormikProps<ITodo>) => (
-        <Form className={classes.TodoForm}>
+        <Form className={classes.TodoForm} noValidate autoComplete="off">
           <Prompt when={dirty} message="The TODO is not saved and will be lost. Are you sure to continue?" />
 
           <h3 className={classes.Heading}>

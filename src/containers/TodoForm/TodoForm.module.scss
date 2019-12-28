@@ -18,7 +18,7 @@
   flex-direction: column;
 
   & > :first-child {
-    margin-right: 2em;
+    margin-right: unset;
   }
 }
 
@@ -41,6 +41,10 @@
 @media (min-width: 600px) {
   .FieldsContainer {
     flex-direction: row;
+
+    & > :first-child {
+      margin-right: 2em;
+    }
   }
 
   .ButtonsContainer {

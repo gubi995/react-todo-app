@@ -7,6 +7,7 @@ import classes from './CreateTodoButton.module.scss';
 
 const CREATE_TODO_PAGE = '/todo/create';
 const EDIT_TODO_PAGE = '/todo/edit';
+const LOGIN_PAGE = '/login';
 
 function CreateTodoButton() {
   const history = useHistory();
@@ -17,7 +18,7 @@ function CreateTodoButton() {
   };
 
   const isHidden = () => {
-    const hiddenPaths = [CREATE_TODO_PAGE, EDIT_TODO_PAGE];
+    const hiddenPaths = [CREATE_TODO_PAGE, EDIT_TODO_PAGE, LOGIN_PAGE];
 
     const hidden = hiddenPaths.some((path) => location.pathname.includes(path));
 

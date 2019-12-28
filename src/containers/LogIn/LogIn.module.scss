@@ -1,0 +1,37 @@
+.LogIn {
+  border: 3px solid lightseagreen;
+  border-radius: 5px;
+  padding: 2em;
+  margin: 1em;
+}
+
+.Container {
+  & > * {
+    margin-bottom: 0.5em;
+  }
+}
+
+.Heading {
+  border-bottom: 3px solid lightseagreen;
+  padding-bottom: 1em;
+}
+
+.SeparatorContainer {
+  display: flex;
+  justify-content: space-around;
+}
+
+.Separator {
+  width: 100%;
+  border-bottom: 1px solid lightseagreen;
+  margin-bottom: 0.5em;
+}
+
+.OrWord {
+  margin: 0 0.5em;
+}
+
+.LogInButton {
+  width: 100%;
+  margin-top: 0.5em;
+}

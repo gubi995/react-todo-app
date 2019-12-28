@@ -3,6 +3,7 @@ import React, { Suspense } from 'react';
 import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 import { useTransition, animated } from 'react-spring';
 
+import { LoginPage } from '../../pages/LoginPage';
 import { LoadingIndicator } from '../LoadingIndicator';
 
 const BoardPage = React.lazy(() => import('../../pages/BoardPage/BoardPage'));
@@ -34,6 +35,9 @@ function RoutesWrapper() {
             <Switch location={item}>
               <Route path="/" exact>
                 <Redirect to="/todos" />
+              </Route>
+              <Route path="/login">
+                <LoginPage />
               </Route>
               <Route path="/board">
                 <BoardPage />
