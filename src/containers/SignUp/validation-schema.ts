@@ -7,7 +7,9 @@ function confirmPasswordValidator(this: Yup.TestContext, value?: any) {
 }
 
 const validationSchema = Yup.object({
-  email: Yup.string().email('Invalid email'),
+  email: Yup.string()
+    .email('Invalid email')
+    .required('Email is required'),
   password: Yup.string()
     .min(7, 'Title should at least seven character')
     .required('Password is required'),

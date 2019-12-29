@@ -1,6 +1,7 @@
+import { db } from '../firebase/firebase';
+
 import { ITodoService } from './todo-service.interface';
 import { ITodo } from '../../models/todo.model';
-import { db } from '../firebase/firebase';
 
 class TodoFirebaseService implements ITodoService {
   todoDb: firebase.firestore.CollectionReference;

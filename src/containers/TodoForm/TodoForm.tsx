@@ -59,7 +59,7 @@ function TodoForm({ todo }: Props) {
     }
   };
 
-  const onSubmit = async (values: ITodo, { setSubmitting, resetForm }: FormikHelpers<ITodo>) => {
+  const submitHandler = async (values: ITodo, { setSubmitting, resetForm }: FormikHelpers<ITodo>) => {
     await todoService.save(values);
 
     setSubmitting(false);
@@ -68,15 +68,15 @@ function TodoForm({ todo }: Props) {
     history.push('/todos');
   };
 
-  const onReset = (values: ITodo, { resetForm }: FormikHelpers<ITodo>) => {
+  const resetHandler = (values: ITodo, { resetForm }: FormikHelpers<ITodo>) => {
     resetForm();
   };
 
   return (
     <Formik
       initialValues={todo || initialValues}
-      onSubmit={onSubmit}
-      onReset={onReset}
+      onSubmit={submitHandler}
+      onReset={resetHandler}
       validationSchema={validationSchema}
     >
       {({ values, isSubmitting, dirty }: FormikProps<ITodo>) => (
