@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { TodoListItem } from './TodoListItem';
 import { ITodo } from '../../models/todo.model';
 import { EmptyTodoList } from './EmptyTodoList';
-import todoService from '../../services/todo-firebase-service';
+import { todoService } from '../../services';
 
 import classes from './TodoList.module.scss';
 

@@ -6,7 +6,7 @@ import { Prompt, useHistory } from 'react-router';
 
 import { Icon, Button, InputWithLabel, PriorityOptions, SubTaskList, SubTaskControlButtons } from '../../components';
 import { ITodo, ISubTask } from '../../models/todo.model';
-import todoService from '../../services/todo-firebase-service';
+import { todoService } from '../../services';
 import initialValues from './initial-values';
 import validationSchema from './validation-schema';
 

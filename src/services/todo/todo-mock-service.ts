@@ -1,5 +1,5 @@
 import { ITodoService } from './todo-service.interface';
-import { ITodo } from '../models/todo.model';
+import { ITodo } from '../../models/todo.model';
 
 const sleep = (ms: number) => {
   const scheduler = new Promise((res, rej) => {

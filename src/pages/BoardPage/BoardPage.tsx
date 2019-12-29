@@ -1,12 +1,6 @@
-/* eslint-disable no-console */
-import React, { useEffect } from 'react';
-import todoMockService from '../../services/todo-mock-service';
+import React from 'react';
 
 function BoardPage() {
-  useEffect(() => {
-    todoMockService.findAll().then(console.log);
-  }, []);
-
   return <div>BoardPage</div>;
 }
 
