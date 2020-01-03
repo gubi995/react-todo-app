@@ -30,6 +30,7 @@ function CreateTodoButton() {
     from: { opacity: 0, pointerEvents: 'none' },
     reverse: isHidden(),
     reset: isHidden(),
+    immediate: location.pathname.includes(LOGIN_PAGE),
   });
 
   return (
