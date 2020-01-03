@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { useHistory } from 'react-router';
+
+import { NotificationContext } from '../../../containers';
 
 import { authService } from '../../../services';
 
@@ -10,6 +12,7 @@ import classes from './FacebookButton.module.scss';
 
 function FacebookButton() {
   const history = useHistory();
+  const { setNotification } = useContext(NotificationContext);
 
   const loginHandler = async () => {
     try {
@@ -17,8 +20,7 @@ function FacebookButton() {
 
       history.push('/todos');
     } catch (error) {
-      // TODO show the error in a toast
-      console.log(error);
+      setNotification({ show: true, message: error.message });
     }
   };
 

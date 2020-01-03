@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { ErrorDialog } from '../ErrorDialog';
 
 interface Props {
-  children: any;
+  children: React.ReactNode;
 }
 
 interface State {

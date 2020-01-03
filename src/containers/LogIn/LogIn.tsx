@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { useHistory } from 'react-router';
 
 import { Formik, Form, FormikHelpers, FormikProps } from 'formik';
 
 import { FacebookButton, GoogleButton, InputWithLabel, Button } from '../../components';
+import { NotificationContext } from '../NotificationProvider';
 import { authService } from '../../services';
 import { ILogInUser } from '../../models/user.model';
 import initialValues from './initial-values';
@@ -14,6 +15,7 @@ import classes from './LogIn.module.scss';
 
 function LogIn() {
   const history = useHistory();
+  const { setNotification } = useContext(NotificationContext);
 
   const submitHandler = async (
     { email, password }: ILogInUser,
@@ -26,8 +28,7 @@ function LogIn() {
       resetForm();
       history.push('/todos');
     } catch (error) {
-      // TODO show the error in a toast
-      console.log(error);
+      setNotification({ show: true, message: error.message });
     }
   };
 

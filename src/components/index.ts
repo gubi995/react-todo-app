@@ -7,6 +7,7 @@ import { PriorityOptions, SubTask, SubTaskList, SubTaskControlButtons } from './
 import { GeneralErrorBoundary } from './GeneralErrorBoundary';
 import { TodoList } from './TodoList';
 import { Button, CreateTodoButton, FacebookButton, GoogleButton } from './Buttons';
+import { Toast } from './Toast';
 
 export {
   NavigationBar,
@@ -25,4 +26,5 @@ export {
   TodoList,
   FacebookButton,
   GoogleButton,
+  Toast,
 };
