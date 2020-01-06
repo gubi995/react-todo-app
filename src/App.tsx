@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { NavigationBar, RoutesWrapper, CreateTodoButton, GeneralErrorBoundary, Toast } from './components';
-import { NotificationProvider } from './containers';
+import { NotificationProvider, NavigationBar } from './containers';
+import { RoutesWrapper, CreateTodoButton, GeneralErrorBoundary, Toast } from './components';
 
 function App() {
   return (

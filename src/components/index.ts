@@ -1,4 +1,3 @@
-import { NavigationBar } from './NavigationBar';
 import { RoutesWrapper } from './RoutesWrapper';
 import { LoadingIndicator } from './LoadingIndicator';
 import { Icon } from './Icon';
@@ -8,9 +7,9 @@ import { GeneralErrorBoundary } from './GeneralErrorBoundary';
 import { TodoList } from './TodoList';
 import { Button, CreateTodoButton, FacebookButton, GoogleButton } from './Buttons';
 import { Toast } from './Toast';
+import { HamburgerMenu } from './HamburgerMenu';
 
 export {
-  NavigationBar,
   RoutesWrapper,
   LoadingIndicator,
   CreateTodoButton,
@@ -27,4 +26,5 @@ export {
   FacebookButton,
   GoogleButton,
   Toast,
+  HamburgerMenu,
 };

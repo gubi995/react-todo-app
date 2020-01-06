@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 
-import { Icon } from '../Icon';
-import { HamburgerMenu } from './HamburgerMenu';
+import { Icon, HamburgerMenu } from '../../components';
 
 import { authService } from '../../services';
 
