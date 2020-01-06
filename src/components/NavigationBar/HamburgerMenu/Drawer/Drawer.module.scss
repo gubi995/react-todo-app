@@ -1,0 +1,17 @@
+.Drawer {
+  position: fixed;
+  z-index: 700;
+  left: 0;
+  top: 0;
+  width: 280px;
+  height: 100%;
+  background-color: white;
+}
+
+.Container {
+  margin: 47px 20px 0 20px;
+
+  & > * {
+    margin-bottom: 0.5em;
+  }
+}

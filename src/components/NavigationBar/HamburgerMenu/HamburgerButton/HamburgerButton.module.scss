@@ -1,0 +1,18 @@
+.HamburgerButton {
+  display: block;
+  margin-left: 1em;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  z-index: 1200;
+}
+
+.Bar {
+  width: 35px;
+  height: 4px;
+  background-color: #fff;
+  border-radius: 5px;
+  margin: 6px 0;
+}

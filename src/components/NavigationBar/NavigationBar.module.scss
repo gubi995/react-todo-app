@@ -23,25 +23,40 @@
   cursor: pointer;
 }
 
-.Link {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  padding: 0 0.5em;
+.AppTitle {
+  margin-left: auto;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+
+.MenuItem {
+  display: block;
+  padding: 0.5em;
   text-decoration: none;
   font-size: large;
   font-weight: bold;
-  color: white;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  transition: all 0.3s;
+  color: lightseagreen;
+  border-radius: 5px;
 
   &:hover,
   &:active,
   &.active {
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    background-color: white;
-    color: lightseagreen;
+    background-color: #80808014;
   }
+}
+
+.LogInOut {
+  display: block;
+  text-align: start;
+  border: none;
+  width: 100%;
+  padding: 0.5em;
+  text-decoration: none;
+  font-size: large;
+  font-weight: bold;
+  color: white;
+  background-color: lightseagreen;
+  border-radius: 5px;
+  cursor: pointer;
 }
