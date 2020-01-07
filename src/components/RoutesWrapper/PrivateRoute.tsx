@@ -12,7 +12,7 @@ function PrivateRoute({ children, ...rest }: Props) {
   return (
     <Route
       {...rest}
-      render={({ location }) => {
+      render={() => {
         const isUserLoggedIn = !!authService.user;
 
         return isUserLoggedIn ? (
@@ -21,7 +21,6 @@ function PrivateRoute({ children, ...rest }: Props) {
           <Redirect
             to={{
               pathname: '/login',
-              state: { from: location },
             }}
           />
         );
