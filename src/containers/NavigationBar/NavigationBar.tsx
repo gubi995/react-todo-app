@@ -10,6 +10,11 @@ import classes from './NavigationBar.module.scss';
 function NavigationBar() {
   const [opened, setOpened] = useState(false);
   const history = useHistory();
+  const navLinkClasses = [classes.MenuItem];
+
+  if (!authService.user) {
+    navLinkClasses.push(classes.disabled);
+  }
 
   const clickHandler = () => {
     setOpened(!opened);
@@ -33,10 +38,10 @@ function NavigationBar() {
     <header className={classes.Header}>
       <nav className={classes.NavigationBar}>
         <HamburgerMenu opened={opened} clickHandler={clickHandler}>
-          <NavLink className={classes.MenuItem} activeClassName={classes.active} to="/todos">
+          <NavLink className={navLinkClasses.join(' ')} activeClassName={classes.active} to="/todos">
             Things to do
           </NavLink>
-          <NavLink className={classes.MenuItem} activeClassName={classes.active} to="/board">
+          <NavLink className={navLinkClasses.join(' ')} activeClassName={classes.active} to="/board">
             Board
           </NavLink>
           {authService.user ? (

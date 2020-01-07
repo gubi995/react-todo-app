@@ -5,6 +5,7 @@ import { useTransition, animated } from 'react-spring';
 
 import { LoginPage } from '../../pages/LoginPage';
 import { LoadingIndicator } from '../LoadingIndicator';
+import PrivateRoute from './PrivateRoute';
 
 const BoardPage = React.lazy(() => import('../../pages/BoardPage/BoardPage'));
 const TodosPage = React.lazy(() => import('../../pages/TodosPage/TodosPage'));
@@ -39,18 +40,18 @@ function RoutesWrapper() {
               <Route path="/login">
                 <LoginPage />
               </Route>
-              <Route path="/board">
+              <PrivateRoute path="/board">
                 <BoardPage />
-              </Route>
-              <Route path="/todos">
+              </PrivateRoute>
+              <PrivateRoute path="/todos">
                 <TodosPage />
-              </Route>
-              <Route path="/todo/create">
+              </PrivateRoute>
+              <PrivateRoute path="/todo/create">
                 <CreateTodoPage />
-              </Route>
-              <Route path="/todo/edit/:id">
+              </PrivateRoute>
+              <PrivateRoute path="/todo/edit/:id">
                 <EditTodoPage />
-              </Route>
+              </PrivateRoute>
               <Route path="*">
                 <PageNotFound />
               </Route>

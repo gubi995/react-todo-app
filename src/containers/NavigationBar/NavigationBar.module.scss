@@ -44,6 +44,13 @@
   &.active {
     background-color: #80808014;
   }
+
+  &.disabled {
+    background-color: transparent;
+    color: #80808091;
+    pointer-events: none;
+    cursor: default;
+  }
 }
 
 .LogInOut {
