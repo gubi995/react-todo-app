@@ -38,21 +38,25 @@ function NavigationBar() {
     <header className={classes.Header}>
       <nav className={classes.NavigationBar}>
         <HamburgerMenu opened={opened} clickHandler={clickHandler}>
-          <NavLink className={navLinkClasses.join(' ')} activeClassName={classes.active} to="/todos">
+          <NavLink
+            className={navLinkClasses.join(' ')}
+            activeClassName={classes.active}
+            to="/todos"
+            onClick={() => setOpened(false)}
+          >
             Things to do
           </NavLink>
-          <NavLink className={navLinkClasses.join(' ')} activeClassName={classes.active} to="/board">
+          <NavLink
+            className={navLinkClasses.join(' ')}
+            activeClassName={classes.active}
+            to="/board"
+            onClick={() => setOpened(false)}
+          >
             Board
           </NavLink>
-          {authService.user ? (
-            <button type="button" className={classes.LogInOut} onClick={logOutHandler}>
-              Log out
-            </button>
-          ) : (
-            <button type="button" className={classes.LogInOut} onClick={logInHandler}>
-              Log in
-            </button>
-          )}
+          <button type="button" className={classes.LogInOut} onClick={authService.user ? logOutHandler : logInHandler}>
+            {authService.user ? 'Log out' : 'Log in'}
+          </button>
         </HamburgerMenu>
         <NavLink className={classes.AppTitle} to="/">
           <Icon className={classes.Icon} ariaLabel="app-icon" icon="📝 TODO APP" />
