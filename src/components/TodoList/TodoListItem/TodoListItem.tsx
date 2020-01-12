@@ -1,8 +1,13 @@
 import React, { KeyboardEvent } from 'react';
-
 import { useHistory } from 'react-router';
 
-import { Icon } from '../../Icon';
+import { Icon } from '@iconify/react';
+import greenCircle from '@iconify/icons-twemoji/green-circle';
+import orangeCircle from '@iconify/icons-twemoji/orange-circle';
+import redCircle from '@iconify/icons-twemoji/red-circle';
+import moonFace from '@iconify/icons-twemoji/new-moon-face';
+import sunFace from '@iconify/icons-twemoji/sun-with-face';
+
 import { ITodo } from '../../../models/todo.model';
 import Priority from '../../../models/priority.enum';
 
@@ -15,19 +20,17 @@ interface Props {
 const getPriorityIcon = (priority: Priority) => {
   switch (priority) {
     case Priority.HIGH:
-      return <Icon ariaLabel="task-priority" icon="🔴" />;
+      return <Icon icon={redCircle} />;
     case Priority.NORMAL:
-      return <Icon ariaLabel="task-priority" icon="🟠" />;
+      return <Icon icon={orangeCircle} />;
     case Priority.LOW:
-      return <Icon ariaLabel="task-priority" icon="🟢" />;
+      return <Icon icon={greenCircle} />;
     default:
       return null;
   }
 };
 
-const getCompletedIcon = (completed: boolean) => (
-  <Icon ariaLabel={completed ? 'task-completed' : 'task-uncompleted'} icon={completed ? '🌞' : '🌚'} />
-);
+const getCompletedIcon = (completed: boolean) => <Icon icon={completed ? sunFace : moonFace} />;
 
 function TodoListItem({ todo }: Props) {
   const history = useHistory();
@@ -64,7 +67,7 @@ function TodoListItem({ todo }: Props) {
         {todo.subTasks.map((subTask) => (
           <span className={classes.SubTask} key={subTask.title}>
             {subTask.title}
-            {subTask.completed ? '🌞' : '🌚'}
+            <Icon icon={subTask.completed ? sunFace : moonFace} />
           </span>
         ))}
       </div>

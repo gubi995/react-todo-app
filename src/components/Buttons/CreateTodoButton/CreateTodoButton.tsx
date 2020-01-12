@@ -1,7 +1,9 @@
 import React from 'react';
-
 import { useHistory, useLocation } from 'react-router';
 import { animated, useSpring } from 'react-spring';
+
+import { Icon } from '@iconify/react';
+import pencil from '@iconify/icons-twemoji/pencil';
 
 import classes from './CreateTodoButton.module.scss';
 
@@ -36,9 +38,7 @@ function CreateTodoButton() {
   return (
     <animated.div style={animation}>
       <button type="button" className={classes.CreateTodoButton} onClick={navigateToCreateTodoPage}>
-        <span role="img" aria-label="create-todo">
-          ➕
-        </span>
+        <Icon className={classes.Icon} icon={pencil} />
       </button>
     </animated.div>
   );

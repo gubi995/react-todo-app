@@ -1,10 +1,11 @@
 import React, { useRef, RefObject } from 'react';
-
-import { Formik, Form, FormikHelpers, FieldArray, ArrayHelpers, FormikProps } from 'formik';
-
 import { Prompt, useHistory } from 'react-router';
 
-import { Icon, Button, InputWithLabel, PriorityOptions, SubTaskList, SubTaskControlButtons } from '../../components';
+import { Formik, Form, FormikHelpers, FieldArray, ArrayHelpers, FormikProps } from 'formik';
+import { Icon } from '@iconify/react';
+import writingHand from '@iconify/icons-twemoji/writing-hand';
+
+import { Button, InputWithLabel, PriorityOptions, SubTaskList, SubTaskControlButtons } from '../../components';
 import { ITodo, ISubTask } from '../../models/todo.model';
 import { todoService } from '../../services';
 import initialValues from './initial-values';
@@ -84,8 +85,8 @@ function TodoForm({ todo }: Props) {
           <Prompt when={dirty} message="The TODO is not saved and will be lost. Are you sure to continue?" />
 
           <h3 className={classes.Heading}>
-            TODO
-            <Icon ariaLabel="page-not-found-icon" icon="✍" />
+            <span>TODO </span>
+            <Icon icon={writingHand} />
           </h3>
 
           <div className={classes.FieldsContainer}>

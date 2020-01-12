@@ -1,6 +1,5 @@
 import { RoutesWrapper } from './RoutesWrapper';
 import { LoadingIndicator } from './LoadingIndicator';
-import { Icon } from './Icon';
 import { Input, InputWithLabel } from './Inputs';
 import { PriorityOptions, SubTask, SubTaskList, SubTaskControlButtons } from './TodoForm';
 import { GeneralErrorBoundary } from './GeneralErrorBoundary';
@@ -14,7 +13,6 @@ export {
   LoadingIndicator,
   CreateTodoButton,
   Button,
-  Icon,
   Input,
   InputWithLabel,
   PriorityOptions,

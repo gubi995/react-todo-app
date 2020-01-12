@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 
-import { Icon, HamburgerMenu } from '../../components';
+import { Icon } from '@iconify/react';
+import memoIcon from '@iconify/icons-twemoji/clipboard';
+
+import { HamburgerMenu } from '../../components';
 
 import { authService } from '../../services';
 
@@ -59,7 +62,8 @@ function NavigationBar() {
           </button>
         </HamburgerMenu>
         <NavLink className={classes.AppTitle} to="/">
-          <Icon className={classes.Icon} ariaLabel="app-icon" icon="📝 TODO APP" />
+          <Icon className={classes.Icon} icon={memoIcon} />
+          <span>TODO APP</span>
         </NavLink>
       </nav>
     </header>

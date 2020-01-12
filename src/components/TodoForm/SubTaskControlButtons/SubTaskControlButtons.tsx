@@ -1,7 +1,11 @@
 import React from 'react';
 
+import { Icon } from '@iconify/react';
+import pencil from '@iconify/icons-twemoji/pencil';
+import leftDirection from '@iconify/icons-twemoji/backhand-index-pointing-left';
+import rightDirection from '@iconify/icons-twemoji/backhand-index-pointing-right';
+
 import { Button } from '../../Buttons/Button';
-import { Icon } from '../../Icon';
 
 import classes from './SubTaskControlButtons.module.scss';
 
@@ -13,14 +17,14 @@ interface Props {
 function SubTaskControlButtons({ handleScroll, addSubTask }: Props) {
   return (
     <div className={classes.SubTaskControlButtons}>
-      <Button type="button" primary rounded onClick={() => handleScroll('left')}>
-        <Icon ariaLabel="previous-sub-task" icon="👈" />
+      <Button type="button" className={classes.ControlButton} primary rounded onClick={() => handleScroll('left')}>
+        <Icon icon={leftDirection} />
       </Button>
-      <Button type="button" primary rounded onClick={addSubTask}>
-        <Icon ariaLabel="new-sub-task" icon="➕" />
+      <Button type="button" className={classes.ControlButton} primary rounded onClick={addSubTask}>
+        <Icon icon={pencil} />
       </Button>
-      <Button type="button" primary rounded onClick={() => handleScroll('right')}>
-        <Icon ariaLabel="next-sub-task" icon="👉" />
+      <Button type="button" className={classes.ControlButton} primary rounded onClick={() => handleScroll('right')}>
+        <Icon icon={rightDirection} />
       </Button>
     </div>
   );

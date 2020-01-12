@@ -1,7 +1,9 @@
 import React from 'react';
 
+import { Icon } from '@iconify/react';
+import crossMark from '@iconify/icons-twemoji/cross-mark';
+
 import { InputWithLabel } from '../../Inputs/InputWithLabel';
-import { Icon } from '../../Icon';
 import { ISubTask } from '../../../models/todo.model';
 
 import classes from './SubTask.module.scss';
@@ -22,7 +24,9 @@ function SubTask({ subTask, index, onRemove }: Props) {
         name={`subTasks.${index}.completed`}
         label="Completed"
       />
-      <Icon className={classes.DeleteButton} onClick={onRemove} ariaLabel="delete-sub-task" icon="❌" />
+      <button type="button" className={classes.DeleteButton} onClick={onRemove}>
+        <Icon icon={crossMark} />
+      </button>
     </div>
   );
 }

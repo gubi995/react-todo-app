@@ -11,19 +11,22 @@
   height: 3em;
 
   & > * {
-    margin: 0 0.5em;
+    margin: 0 1.5em;
   }
 }
 
 .Icon {
   height: 100%;
-  padding: 0 1em;
+  width: 1.5em;
+  padding-right: 0.5em;
   display: flex;
   align-items: center;
   cursor: pointer;
 }
 
 .AppTitle {
+  display: flex;
+  align-items: center;
   margin-left: auto;
   text-decoration: none;
   color: white;
