@@ -97,7 +97,7 @@ function TodoForm({ todo }: Props) {
                 <PriorityOptions />
               </InputWithLabel>
               <InputWithLabel type="date" name="deadline" label="Deadline" />
-              <InputWithLabel type="checkbox" checked={todo?.completed || false} name="completed" label="Completed" />
+              <InputWithLabel type="checkbox" name="completed" label="Completed" />
               <h5>Assignee</h5>
               <InputWithLabel name="assignee.name" label="Name" />
               <InputWithLabel type="email" name="assignee.email" label="Email" />
