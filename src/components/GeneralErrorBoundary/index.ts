@@ -1,3 +1,3 @@
 import GeneralErrorBoundary from './GeneralErrorBoundary';
 
-export { GeneralErrorBoundary };
+export default GeneralErrorBoundary;

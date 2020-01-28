@@ -1,3 +1,3 @@
 import ErrorDialog from './ErrorDialog';
 
-export { ErrorDialog };
+export default ErrorDialog;

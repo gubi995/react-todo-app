@@ -3,15 +3,15 @@ import React, { Suspense } from 'react';
 import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 import { useTransition, animated } from 'react-spring';
 
-import { LoginPage } from '../../pages/LoginPage';
+import LoginPage from '../../pages/LoginPage';
 import { LoadingIndicator } from '../LoadingIndicator';
 import PrivateRoute from './PrivateRoute';
 
-const BoardPage = React.lazy(() => import('../../pages/BoardPage/BoardPage'));
-const TodosPage = React.lazy(() => import('../../pages/TodosPage/TodosPage'));
-const CreateTodoPage = React.lazy(() => import('../../pages/CreateTodoPage/CreateTodoPage'));
-const EditTodoPage = React.lazy(() => import('../../pages/EditTodoPage/EditTodoPage'));
-const PageNotFound = React.lazy(() => import('../../pages/PageNotFound/PageNotFound'));
+const BoardPage = React.lazy(() => import('../../pages/BoardPage'));
+const TodosPage = React.lazy(() => import('../../pages/TodosPage'));
+const CreateTodoPage = React.lazy(() => import('../../pages/CreateTodoPage'));
+const EditTodoPage = React.lazy(() => import('../../pages/EditTodoPage'));
+const PageNotFound = React.lazy(() => import('../../pages/PageNotFound'));
 
 function RoutesWrapper() {
   const location = useLocation();

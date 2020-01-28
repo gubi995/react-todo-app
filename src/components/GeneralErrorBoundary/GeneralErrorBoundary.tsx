@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import React, { Component } from 'react';
 
-import { ErrorDialog } from '../ErrorDialog';
+import ErrorDialog from '../ErrorDialog';
 
 interface Props {
   children: React.ReactNode;

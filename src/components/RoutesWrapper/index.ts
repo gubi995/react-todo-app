@@ -1,3 +1,3 @@
 import RoutesWrapper from './RoutesWrapper';
 
-export { RoutesWrapper };
+export default RoutesWrapper;

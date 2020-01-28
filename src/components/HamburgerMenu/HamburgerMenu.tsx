@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { HamburgerButton } from './HamburgerButton';
-import { Drawer } from './Drawer';
-import { BackDrop } from './BackDrop';
+import HamburgerButton from './HamburgerButton';
+import Drawer from './Drawer';
+import BackDrop from './BackDrop';
 
 interface Props {
   opened: boolean;

@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 
 import { useSpring, animated } from 'react-spring';
 
-import { NotificationContext } from '../../containers';
+import { NotificationContext } from '../NotificationProvider';
 
 import classes from './Toast.module.scss';
 

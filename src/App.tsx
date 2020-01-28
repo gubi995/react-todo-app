@@ -1,7 +1,13 @@
 import React from 'react';
 
-import { NotificationProvider, NavigationBar } from './containers';
-import { RoutesWrapper, CreateTodoButton, GeneralErrorBoundary, Toast } from './components';
+import {
+  RoutesWrapper,
+  CreateTodoButton,
+  GeneralErrorBoundary,
+  Toast,
+  NotificationProvider,
+  NavigationBar,
+} from './components';
 
 function App() {
   return (

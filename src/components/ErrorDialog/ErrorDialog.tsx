@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useHistory } from 'react-router';
 
-import { Button } from '../Buttons/Button';
+import Button from '../Buttons/Button';
 
 import classes from './ErrorDialog.module.scss';
 
