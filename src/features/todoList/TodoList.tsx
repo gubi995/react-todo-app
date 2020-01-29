@@ -1,28 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import TodoListItem from './TodoListItem';
 import EmptyTodoList from './EmptyTodoList';
 
 import { ITodo } from '../../models/todo.model';
 
-import { todoService } from '../../services';
-
 import classes from './TodoList.module.scss';
 
-function TodoList() {
-  const [todos, setTodos] = useState<ITodo[]>([]);
-  const [loading, setLoading] = useState(false);
+interface Props {
+  todos: ITodo[];
+  loaded: boolean;
+  initTodosAsync: () => void;
+}
 
+function TodoList({ todos, loaded, initTodosAsync }: Props) {
   useEffect(() => {
-    setLoading(true);
+    if (!loaded) {
+      initTodosAsync();
+    }
+  }, [loaded, initTodosAsync]);
 
-    todoService.findAll().then((fetchedTodos: ITodo[]) => {
-      setTodos(fetchedTodos);
-      setLoading(false);
-    });
-  }, []);
-
-  if (loading) {
+  if (!loaded) {
     return <h2>Loading...</h2>;
   }
 
