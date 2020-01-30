@@ -3,17 +3,29 @@ import { ThunkDispatch } from 'redux-thunk';
 
 import { RootState } from '../../store/rootReducer';
 import { initTodosAsync } from '../../store/todoSlice';
+import { ITodo } from '../../models/todo.model';
 
 import TodoList from './TodoList';
 
-const mapStateToProps = (state: RootState) => {
+interface StateProps {
+  todos: ITodo[];
+  loaded: boolean;
+}
+
+interface DispatchProps {
+  initTodosAsync: () => void;
+}
+
+const mapStateToProps = (state: RootState): StateProps => {
   const { todos } = state;
 
   return { ...todos };
 };
 
-const mapDispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>) => ({
+const mapDispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>): DispatchProps => ({
   initTodosAsync: () => dispatch(initTodosAsync()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TodoList);
+export type Props = StateProps & DispatchProps;
+
+export default connect<StateProps, DispatchProps, {}, RootState>(mapStateToProps, mapDispatchToProps)(TodoList);

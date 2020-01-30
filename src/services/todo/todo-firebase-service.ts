@@ -30,14 +30,19 @@ class TodoFirebaseService implements ITodoService {
     return undefined;
   }
 
-  async save(todo: ITodo): Promise<void> {
+  async save(todo: ITodo): Promise<ITodo> {
     if (todo.id) {
-      return this.todoDb.doc(todo.id).set(todo);
+      await this.todoDb.doc(todo.id).set(todo);
+
+      return todo;
     }
 
     const newTodoRef = this.todoDb.doc();
+    const newTodo: ITodo = { ...todo, id: newTodoRef.id };
 
-    return newTodoRef.set({ ...todo, id: newTodoRef.id });
+    await newTodoRef.set(newTodo);
+
+    return newTodo;
   }
 
   async delete(id: string): Promise<void> {

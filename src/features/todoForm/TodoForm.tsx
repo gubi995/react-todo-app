@@ -11,17 +11,12 @@ import SubTaskList from './SubTaskList';
 import SubTaskControlButtons from './SubTaskControlButtons';
 
 import { ITodo, ISubTask } from '../../models/todo.model';
-import { todoService } from '../../services';
-import initialValues from './initial-values';
+import { Props } from '.';
 import validationSchema from './validation-schema';
 
 import classes from './TodoForm.module.scss';
 
-interface Props {
-  todo?: ITodo;
-}
-
-function TodoForm({ todo }: Props) {
+function TodoForm({ todo, saveTodo, deleteTodo }: Props) {
   const subTaskListRef: RefObject<HTMLDivElement> = useRef(null);
   const history = useHistory();
 
@@ -56,16 +51,16 @@ function TodoForm({ todo }: Props) {
     }, 0);
   };
 
-  const deleteTodoHandler = async () => {
+  const deleteTodoHandler = () => {
     if (todo) {
-      await todoService.delete(todo.id);
+      deleteTodo(todo.id);
 
       history.push('/todos');
     }
   };
 
-  const submitHandler = async (values: ITodo, { setSubmitting, resetForm }: FormikHelpers<ITodo>) => {
-    await todoService.save(values);
+  const submitHandler = (values: ITodo, { setSubmitting, resetForm }: FormikHelpers<ITodo>) => {
+    saveTodo(values);
 
     setSubmitting(false);
     resetForm();
@@ -78,12 +73,7 @@ function TodoForm({ todo }: Props) {
   };
 
   return (
-    <Formik
-      initialValues={todo || initialValues}
-      onSubmit={submitHandler}
-      onReset={resetHandler}
-      validationSchema={validationSchema}
-    >
+    <Formik initialValues={todo} onSubmit={submitHandler} onReset={resetHandler} validationSchema={validationSchema}>
       {({ values, isSubmitting, dirty }: FormikProps<ITodo>) => (
         <Form className={classes.TodoForm} noValidate autoComplete="off">
           <Prompt when={dirty} message="The TODO is not saved and will be lost. Are you sure to continue?" />

@@ -3,15 +3,9 @@ import React, { useEffect } from 'react';
 import TodoListItem from './TodoListItem';
 import EmptyTodoList from './EmptyTodoList';
 
-import { ITodo } from '../../models/todo.model';
+import { Props } from '.';
 
 import classes from './TodoList.module.scss';
-
-interface Props {
-  todos: ITodo[];
-  loaded: boolean;
-  initTodosAsync: () => void;
-}
 
 function TodoList({ todos, loaded, initTodosAsync }: Props) {
   useEffect(() => {

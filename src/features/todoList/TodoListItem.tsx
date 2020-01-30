@@ -36,7 +36,7 @@ function TodoListItem({ todo }: Props) {
   const history = useHistory();
 
   const navigateToEditPage = () => {
-    history.push(`/todo/edit/${todo.id}`, { todo });
+    history.push(`/todo/edit/${todo.id}`);
   };
 
   const handleKeyPress = (event: KeyboardEvent) => {

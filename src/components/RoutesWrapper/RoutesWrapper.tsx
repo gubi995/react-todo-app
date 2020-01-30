@@ -9,8 +9,7 @@ import PrivateRoute from './PrivateRoute';
 
 const BoardPage = React.lazy(() => import('../../pages/BoardPage'));
 const TodosPage = React.lazy(() => import('../../pages/TodosPage'));
-const CreateTodoPage = React.lazy(() => import('../../pages/CreateTodoPage'));
-const EditTodoPage = React.lazy(() => import('../../pages/EditTodoPage'));
+const TodoPage = React.lazy(() => import('../../pages/TodoPage'));
 const PageNotFound = React.lazy(() => import('../../pages/PageNotFound'));
 
 function RoutesWrapper() {
@@ -46,11 +45,8 @@ function RoutesWrapper() {
               <PrivateRoute path="/todos">
                 <TodosPage />
               </PrivateRoute>
-              <PrivateRoute path="/todo/create">
-                <CreateTodoPage />
-              </PrivateRoute>
-              <PrivateRoute path="/todo/edit/:id">
-                <EditTodoPage />
+              <PrivateRoute path="/todo/:id">
+                <TodoPage />
               </PrivateRoute>
               <Route path="*">
                 <PageNotFound />

@@ -53,14 +53,15 @@ export const initTodosAsync = (): AppThunk => async (dispatch) => {
   }
 };
 
-export const addTodoAsync = (todo: ITodo): AppThunk => async (dispatch) => {
+export const saveTodoAsync = (todo: ITodo): AppThunk => async (dispatch) => {
   try {
-    await todoService.save(todo);
+    const newTodo = !!todo.id;
+    const todoToStore = await todoService.save(todo);
 
-    if (todo.id) {
-      dispatch(updateTodo(todo));
+    if (newTodo) {
+      dispatch(updateTodo(todoToStore));
     } else {
-      dispatch(addTodo(todo));
+      dispatch(addTodo(todoToStore));
     }
   } catch (error) {
     console.log(error);
@@ -77,6 +78,6 @@ export const deleteTodoAsync = (id: string): AppThunk => async (dispatch) => {
   }
 };
 
-export const selectTodo = (state: TodoState, { id }: { id: string }) => state.todos.find((todo) => todo.id === id);
+export const selectTodo = (state: TodoState, id: string) => state.todos.find((todo) => todo.id === id);
 
 export default todos.reducer;
