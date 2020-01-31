@@ -5,23 +5,21 @@ import { useHistory } from 'react-router';
 import { Formik, Form, FormikHelpers, FormikProps } from 'formik';
 
 import { InputWithLabel, Button, NotificationContext } from '../../components';
-import { authService } from '../../services';
-import { IFutureUser } from '../../models/user.model';
+import { ISignUpData } from '../../models/user.model';
 import initialValues from './initial-values';
 import validationSchema from './validation-schema';
 
+import { Props } from '.';
+
 import classes from './SignUp.module.scss';
 
-function SignUp() {
+function SignUp({ createUserWithEmailAndPasswordAsync }: Props) {
   const history = useHistory();
   const { setNotification } = useContext(NotificationContext);
 
-  const submitHandler = async (
-    { email, password }: IFutureUser,
-    { setSubmitting, resetForm }: FormikHelpers<IFutureUser>
-  ) => {
+  const submitHandler = async (signUpData: ISignUpData, { setSubmitting, resetForm }: FormikHelpers<ISignUpData>) => {
     try {
-      await authService.createUserWithEmailAndPassword(email, password);
+      createUserWithEmailAndPasswordAsync(signUpData);
 
       setSubmitting(false);
       resetForm();
@@ -36,7 +34,7 @@ function SignUp() {
       <h2 className={classes.Heading}>Sign up</h2>
 
       <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={submitHandler}>
-        {({ isSubmitting }: FormikProps<IFutureUser>) => (
+        {({ isSubmitting }: FormikProps<ISignUpData>) => (
           <Form>
             <InputWithLabel label="Email" name="email" />
             <InputWithLabel label="Password" name="password" type="password" />

@@ -6,16 +6,16 @@ import memoIcon from '@iconify/icons-twemoji/clipboard';
 
 import HamburgerMenu from '../HamburgerMenu';
 
-import { authService } from '../../services';
+import { Props } from '.';
 
 import classes from './NavigationBar.module.scss';
 
-function NavigationBar() {
+function NavigationBar({ isUserLoggedIn, logoutAsync }: Props) {
   const [opened, setOpened] = useState(false);
   const history = useHistory();
   const navLinkClasses = [classes.MenuItem];
 
-  if (!authService.user) {
+  if (!isUserLoggedIn) {
     navLinkClasses.push(classes.disabled);
   }
 
@@ -30,7 +30,7 @@ function NavigationBar() {
   };
 
   const logOutHandler = () => {
-    authService.user = null;
+    logoutAsync();
 
     history.push('/login');
 
@@ -57,8 +57,8 @@ function NavigationBar() {
           >
             Board
           </NavLink>
-          <button type="button" className={classes.LogInOut} onClick={authService.user ? logOutHandler : logInHandler}>
-            {authService.user ? 'Log out' : 'Log in'}
+          <button type="button" className={classes.LogInOut} onClick={isUserLoggedIn ? logOutHandler : logInHandler}>
+            {isUserLoggedIn ? 'Log out' : 'Log in'}
           </button>
         </HamburgerMenu>
         <NavLink className={classes.AppTitle} to="/">

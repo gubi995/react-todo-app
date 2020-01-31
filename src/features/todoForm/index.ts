@@ -24,7 +24,7 @@ interface OwnProps {
 }
 
 const mapStateToProps = (state: RootState, { id }: OwnProps): StateProps => {
-  const todo = selectTodo(state.todos, id);
+  const todo = selectTodo(state.todosState, id);
 
   return { todo: todo || initialValues };
 };

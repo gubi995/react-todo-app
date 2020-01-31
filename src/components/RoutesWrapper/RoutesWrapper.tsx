@@ -4,8 +4,8 @@ import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 import { useTransition, animated } from 'react-spring';
 
 import LoginPage from '../../pages/LoginPage';
-import { LoadingIndicator } from '../LoadingIndicator';
 import PrivateRoute from './PrivateRoute';
+import { LoadingIndicator } from '../LoadingIndicator';
 
 const BoardPage = React.lazy(() => import('../../pages/BoardPage'));
 const TodosPage = React.lazy(() => import('../../pages/TodosPage'));

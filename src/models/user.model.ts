@@ -3,13 +3,13 @@ export interface IUser {
   email: string;
 }
 
-export interface IFutureUser {
+export interface ISignUpData {
   email: string;
   password: string;
   confirmPassword: string;
 }
 
-export interface ILogInUser {
+export interface IUserCredentials {
   email: string;
   password: string;
 }

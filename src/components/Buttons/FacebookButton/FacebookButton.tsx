@@ -2,21 +2,21 @@ import React, { useContext } from 'react';
 
 import { useHistory } from 'react-router';
 
-import { NotificationContext } from '../NotificationProvider';
+import { NotificationContext } from '../../NotificationProvider';
 
-import { authService } from '../../services';
+import facebookLogo from '../../../assets/logos/facebook-logo.svg';
 
-import facebookLogo from '../../assets/logos/facebook-logo.svg';
+import { Props } from '.';
 
 import classes from './FacebookButton.module.scss';
 
-function FacebookButton() {
+function FacebookButton({ facebookLoginAsync }: Props) {
   const history = useHistory();
   const { setNotification } = useContext(NotificationContext);
 
   const loginHandler = async () => {
     try {
-      await authService.facebookLogin();
+      facebookLoginAsync();
 
       history.push('/todos');
     } catch (error) {

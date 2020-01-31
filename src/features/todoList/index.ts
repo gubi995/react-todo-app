@@ -17,9 +17,9 @@ interface DispatchProps {
 }
 
 const mapStateToProps = (state: RootState): StateProps => {
-  const { todos } = state;
+  const { todosState } = state;
 
-  return { ...todos };
+  return { ...todosState };
 };
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>): DispatchProps => ({

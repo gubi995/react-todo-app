@@ -1,20 +1,14 @@
 import React from 'react';
 
-import { Route, Redirect, RouteProps } from 'react-router';
+import { Route, Redirect } from 'react-router';
 
-import { authService } from '../../services';
+import { Props } from '.';
 
-interface Props extends RouteProps {
-  children: React.ReactNode;
-}
-
-function PrivateRoute({ children, ...rest }: Props) {
+function PrivateRoute({ isUserLoggedIn, children, ...rest }: Props) {
   return (
     <Route
       {...rest}
       render={() => {
-        const isUserLoggedIn = !!authService.user;
-
         return isUserLoggedIn ? (
           children
         ) : (

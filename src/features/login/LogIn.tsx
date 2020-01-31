@@ -6,23 +6,24 @@ import { Formik, Form, FormikHelpers, FormikProps } from 'formik';
 
 import { FacebookButton, GoogleButton, InputWithLabel, Button } from '../../components';
 import { NotificationContext } from '../../components/NotificationProvider';
-import { authService } from '../../services';
-import { ILogInUser } from '../../models/user.model';
+import { IUserCredentials } from '../../models/user.model';
 import initialValues from './initial-values';
 import validationSchema from './validation-schema';
 
+import { Props } from '.';
+
 import classes from './LogIn.module.scss';
 
-function LogIn() {
+function LogIn({ emailAndPasswordLoginAsync }: Props) {
   const history = useHistory();
   const { setNotification } = useContext(NotificationContext);
 
   const submitHandler = async (
-    { email, password }: ILogInUser,
-    { setSubmitting, resetForm }: FormikHelpers<ILogInUser>
+    userCredentials: IUserCredentials,
+    { setSubmitting, resetForm }: FormikHelpers<IUserCredentials>
   ) => {
     try {
-      await authService.emailAndPasswordLogin(email, password);
+      emailAndPasswordLoginAsync(userCredentials);
 
       setSubmitting(false);
       resetForm();
