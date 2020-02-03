@@ -11,7 +11,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  logoutAsync: () => void;
+  logoutAsync: (afterLogout?: () => void) => void;
 }
 
 const mapStateToProps = (state: RootState): StateProps => {
@@ -21,7 +21,7 @@ const mapStateToProps = (state: RootState): StateProps => {
 };
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>): DispatchProps => ({
-  logoutAsync: () => dispatch(logoutAsync()),
+  logoutAsync: (afterLogout?: () => void) => dispatch(logoutAsync(afterLogout)),
 });
 
 export type Props = StateProps & DispatchProps;

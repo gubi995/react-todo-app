@@ -7,11 +7,11 @@ import { facebookLoginAsync } from '../../../store/userSlice';
 import FacebookButton from './FacebookButton';
 
 interface DispatchProps {
-  facebookLoginAsync: () => void;
+  facebookLoginAsync: (afterLogin?: () => void) => void;
 }
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>): DispatchProps => ({
-  facebookLoginAsync: () => dispatch(facebookLoginAsync()),
+  facebookLoginAsync: (afterLogin?: () => void) => dispatch(facebookLoginAsync(afterLogin)),
 });
 
 export type Props = DispatchProps;

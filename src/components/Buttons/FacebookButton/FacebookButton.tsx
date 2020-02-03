@@ -16,9 +16,9 @@ function FacebookButton({ facebookLoginAsync }: Props) {
 
   const loginHandler = async () => {
     try {
-      facebookLoginAsync();
-
-      history.push('/todos');
+      facebookLoginAsync(() => {
+        history.push('/todos');
+      });
     } catch (error) {
       setNotification({ show: true, message: error.message });
     }

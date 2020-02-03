@@ -9,11 +9,15 @@ import { IUserCredentials } from '../../models/user.model';
 import SignUp from './SignUp';
 
 interface DispatchProps {
-  createUserWithEmailAndPasswordAsync: (userCredentials: IUserCredentials) => void;
+  createUserWithEmailAndPasswordAsync: (userCredentials: IUserCredentials, afterSignUp?: () => void) => void;
 }
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>): DispatchProps => ({
-  createUserWithEmailAndPasswordAsync: (uc: IUserCredentials) => dispatch(createUserWithEmailAndPasswordAsync(uc)),
+  createUserWithEmailAndPasswordAsync: (userCredentials: IUserCredentials, afterSignUp?: () => void) => {
+    const dispatchFunction = dispatch(createUserWithEmailAndPasswordAsync(userCredentials, afterSignUp));
+
+    return dispatchFunction;
+  },
 });
 
 export type Props = DispatchProps;

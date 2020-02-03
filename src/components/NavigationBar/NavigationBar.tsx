@@ -30,11 +30,11 @@ function NavigationBar({ isUserLoggedIn, logoutAsync }: Props) {
   };
 
   const logOutHandler = () => {
-    logoutAsync();
+    logoutAsync(() => {
+      history.push('/login');
 
-    history.push('/login');
-
-    setOpened(false);
+      setOpened(false);
+    });
   };
 
   return (

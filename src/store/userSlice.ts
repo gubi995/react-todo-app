@@ -4,6 +4,8 @@ import { AppThunk } from './store';
 
 import { authService } from '../services';
 
+import { runCallbackIfExists } from '../utils';
+
 import { IUser, IUserCredentials } from '../models/user.model';
 
 interface UserState {
@@ -29,53 +31,67 @@ const user = createSlice({
 
 export const { login, logout } = user.actions;
 
-export const createUserWithEmailAndPasswordAsync = (userCredentials: IUserCredentials): AppThunk => async (
-  dispatch
-) => {
+export const createUserWithEmailAndPasswordAsync = (
+  userCredentials: IUserCredentials,
+  afterSignUp?: () => void
+): AppThunk => async (dispatch) => {
   try {
     const createdUser = await authService.createUserWithEmailAndPassword(userCredentials);
 
     dispatch(login(createdUser));
+
+    runCallbackIfExists(afterSignUp);
   } catch (error) {
     console.log(error);
   }
 };
 
-export const emailAndPasswordLoginAsync = (userCredentials: IUserCredentials): AppThunk => async (dispatch) => {
+export const emailAndPasswordLoginAsync = (
+  userCredentials: IUserCredentials,
+  afterLogin?: () => void
+): AppThunk => async (dispatch) => {
   try {
     const userData = await authService.emailAndPasswordLogin(userCredentials);
 
     dispatch(login(userData));
+
+    runCallbackIfExists(afterLogin);
   } catch (error) {
     console.log(error);
   }
 };
 
-export const facebookLoginAsync = (): AppThunk => async (dispatch) => {
+export const facebookLoginAsync = (afterLogin?: () => void): AppThunk => async (dispatch) => {
   try {
     const userData = await authService.facebookLogin();
 
     dispatch(login(userData));
+
+    runCallbackIfExists(afterLogin);
   } catch (error) {
     console.log(error);
   }
 };
 
-export const googleLoginAsync = (): AppThunk => async (dispatch) => {
+export const googleLoginAsync = (afterLogin?: () => void): AppThunk => async (dispatch) => {
   try {
     const userData = await authService.googleLogin();
 
     dispatch(login(userData));
+
+    runCallbackIfExists(afterLogin);
   } catch (error) {
     console.log(error);
   }
 };
 
-export const logoutAsync = (): AppThunk => async (dispatch) => {
+export const logoutAsync = (afterLogout?: () => void): AppThunk => async (dispatch) => {
   try {
     await authService.logout();
 
     dispatch(logout());
+
+    runCallbackIfExists(afterLogout);
   } catch (error) {
     console.log(error);
   }

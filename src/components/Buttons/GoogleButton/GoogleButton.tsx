@@ -16,9 +16,9 @@ function GoogleButton({ googleLoginAsync }: Props) {
 
   const loginHandler = async () => {
     try {
-      googleLoginAsync();
-
-      history.push('/todos');
+      googleLoginAsync(() => {
+        history.push('/todos');
+      });
     } catch (error) {
       setNotification({ show: true, message: error.message });
     }

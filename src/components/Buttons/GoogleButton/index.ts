@@ -7,11 +7,11 @@ import { googleLoginAsync } from '../../../store/userSlice';
 import GoogleButton from './GoogleButton';
 
 interface DispatchProps {
-  googleLoginAsync: () => void;
+  googleLoginAsync: (afterLogin?: () => void) => void;
 }
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>): DispatchProps => ({
-  googleLoginAsync: () => dispatch(googleLoginAsync()),
+  googleLoginAsync: (afterLogin?: () => void) => dispatch(googleLoginAsync(afterLogin)),
 });
 
 export type Props = DispatchProps;

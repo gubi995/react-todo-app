@@ -23,11 +23,11 @@ function LogIn({ emailAndPasswordLoginAsync }: Props) {
     { setSubmitting, resetForm }: FormikHelpers<IUserCredentials>
   ) => {
     try {
-      emailAndPasswordLoginAsync(userCredentials);
-
-      setSubmitting(false);
-      resetForm();
-      history.push('/todos');
+      emailAndPasswordLoginAsync(userCredentials, () => {
+        setSubmitting(false);
+        resetForm();
+        history.push('/todos');
+      });
     } catch (error) {
       setNotification({ show: true, message: error.message });
     }

@@ -19,11 +19,11 @@ function SignUp({ createUserWithEmailAndPasswordAsync }: Props) {
 
   const submitHandler = async (signUpData: ISignUpData, { setSubmitting, resetForm }: FormikHelpers<ISignUpData>) => {
     try {
-      createUserWithEmailAndPasswordAsync(signUpData);
-
-      setSubmitting(false);
-      resetForm();
-      history.push('/todos');
+      createUserWithEmailAndPasswordAsync(signUpData, () => {
+        setSubmitting(false);
+        resetForm();
+        history.push('/todos');
+      });
     } catch (error) {
       setNotification({ show: true, message: error.message });
     }
