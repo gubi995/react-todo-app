@@ -2,6 +2,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { AppThunk } from './store';
 
+import { showThenHideNotification } from './uiSlice';
+
 import { authService } from '../services';
 
 import { runCallbackIfExists } from '../utils';
@@ -42,7 +44,7 @@ export const createUserWithEmailAndPasswordAsync = (
 
     runCallbackIfExists(afterSignUp);
   } catch (error) {
-    console.log(error);
+    dispatch(showThenHideNotification(error.message));
   }
 };
 
@@ -57,7 +59,7 @@ export const emailAndPasswordLoginAsync = (
 
     runCallbackIfExists(afterLogin);
   } catch (error) {
-    console.log(error);
+    dispatch(showThenHideNotification(error.message));
   }
 };
 
@@ -69,7 +71,7 @@ export const facebookLoginAsync = (afterLogin?: () => void): AppThunk => async (
 
     runCallbackIfExists(afterLogin);
   } catch (error) {
-    console.log(error);
+    dispatch(showThenHideNotification(error.message));
   }
 };
 
@@ -81,7 +83,7 @@ export const googleLoginAsync = (afterLogin?: () => void): AppThunk => async (di
 
     runCallbackIfExists(afterLogin);
   } catch (error) {
-    console.log(error);
+    dispatch(showThenHideNotification(error.message));
   }
 };
 
@@ -93,7 +95,7 @@ export const logoutAsync = (afterLogout?: () => void): AppThunk => async (dispat
 
     runCallbackIfExists(afterLogout);
   } catch (error) {
-    console.log(error);
+    dispatch(showThenHideNotification(error.message));
   }
 };
 

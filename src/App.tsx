@@ -1,29 +1,20 @@
 import React from 'react';
 
-import {
-  RoutesWrapper,
-  CreateTodoButton,
-  GeneralErrorBoundary,
-  Toast,
-  NotificationProvider,
-  NavigationBar,
-} from './components';
+import { RoutesWrapper, CreateTodoButton, GeneralErrorBoundary, Toast, NavigationBar } from './components';
 
 function App() {
   return (
     <div>
       <NavigationBar />
       <GeneralErrorBoundary>
-        <NotificationProvider>
-          <main style={{ overflowX: 'hidden' }}>
-            <RoutesWrapper />
-          </main>
+        <main style={{ overflowX: 'hidden' }}>
+          <RoutesWrapper />
+        </main>
 
-          <footer>
-            <CreateTodoButton />
-            <Toast />
-          </footer>
-        </NotificationProvider>
+        <footer>
+          <CreateTodoButton />
+          <Toast />
+        </footer>
       </GeneralErrorBoundary>
     </div>
   );

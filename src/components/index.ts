@@ -1,7 +1,6 @@
 import { Button, CreateTodoButton, FacebookButton, GoogleButton } from './Buttons';
 import { Input, InputWithLabel } from './Inputs';
 import { LoadingIndicator } from './LoadingIndicator';
-import { NotificationContext, NotificationProvider } from './NotificationProvider';
 import RoutesWrapper from './RoutesWrapper';
 import NavigationBar from './NavigationBar';
 import GeneralErrorBoundary from './GeneralErrorBoundary';
@@ -20,7 +19,5 @@ export {
   GoogleButton,
   Toast,
   HamburgerMenu,
-  NotificationContext,
-  NotificationProvider,
   NavigationBar,
 };

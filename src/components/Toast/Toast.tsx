@@ -1,15 +1,12 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import { useSpring, animated } from 'react-spring';
 
-import { NotificationContext } from '../NotificationProvider';
+import { Props } from '.';
 
 import classes from './Toast.module.scss';
 
-function Toast() {
-  const { notification } = useContext(NotificationContext);
-  const { show, message } = notification;
-
+function Toast({ message, show }: Props) {
   const animation = useSpring({
     to: { opacity: 1, transform: 'translateX(0)' },
     from: { opacity: 0, transform: 'translateX(-50%)' },

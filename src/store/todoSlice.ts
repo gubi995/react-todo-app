@@ -2,6 +2,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { AppThunk } from './store';
 
+import { showThenHideNotification } from './uiSlice';
+
 import { todoService } from '../services';
 
 import { ITodo } from '../models/todo.model';
@@ -49,7 +51,7 @@ export const initTodosAsync = (): AppThunk => async (dispatch) => {
 
     dispatch(initTodos(fetchedTodos));
   } catch (error) {
-    console.log(error);
+    dispatch(showThenHideNotification(error.message));
   }
 };
 
@@ -64,7 +66,7 @@ export const saveTodoAsync = (todo: ITodo): AppThunk => async (dispatch) => {
       dispatch(addTodo(todoToStore));
     }
   } catch (error) {
-    console.log(error);
+    dispatch(showThenHideNotification(error.message));
   }
 };
 
@@ -74,7 +76,7 @@ export const deleteTodoAsync = (id: string): AppThunk => async (dispatch) => {
 
     dispatch(deleteTodo(id));
   } catch (error) {
-    console.log(error);
+    dispatch(showThenHideNotification(error.message));
   }
 };
 

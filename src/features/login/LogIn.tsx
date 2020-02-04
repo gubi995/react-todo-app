@@ -1,11 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import { useHistory } from 'react-router';
 
 import { Formik, Form, FormikHelpers, FormikProps } from 'formik';
 
 import { FacebookButton, GoogleButton, InputWithLabel, Button } from '../../components';
-import { NotificationContext } from '../../components/NotificationProvider';
 import { IUserCredentials } from '../../models/user.model';
 import initialValues from './initial-values';
 import validationSchema from './validation-schema';
@@ -16,21 +15,16 @@ import classes from './LogIn.module.scss';
 
 function LogIn({ emailAndPasswordLoginAsync }: Props) {
   const history = useHistory();
-  const { setNotification } = useContext(NotificationContext);
 
   const submitHandler = async (
     userCredentials: IUserCredentials,
     { setSubmitting, resetForm }: FormikHelpers<IUserCredentials>
   ) => {
-    try {
-      emailAndPasswordLoginAsync(userCredentials, () => {
-        setSubmitting(false);
-        resetForm();
-        history.push('/todos');
-      });
-    } catch (error) {
-      setNotification({ show: true, message: error.message });
-    }
+    emailAndPasswordLoginAsync(userCredentials, () => {
+      setSubmitting(false);
+      resetForm();
+      history.push('/todos');
+    });
   };
 
   return (

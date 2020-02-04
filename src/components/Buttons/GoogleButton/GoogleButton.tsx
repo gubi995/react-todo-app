@@ -1,8 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import { useHistory } from 'react-router';
-
-import { NotificationContext } from '../../NotificationProvider';
 
 import googleLogo from '../../../assets/logos/google_logo.svg';
 
@@ -12,16 +10,11 @@ import classes from './GoogleButton.module.scss';
 
 function GoogleButton({ googleLoginAsync }: Props) {
   const history = useHistory();
-  const { setNotification } = useContext(NotificationContext);
 
   const loginHandler = async () => {
-    try {
-      googleLoginAsync(() => {
-        history.push('/todos');
-      });
-    } catch (error) {
-      setNotification({ show: true, message: error.message });
-    }
+    googleLoginAsync(() => {
+      history.push('/todos');
+    });
   };
 
   return (
