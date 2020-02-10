@@ -5,7 +5,7 @@ import { useTransition, animated } from 'react-spring';
 
 import LoginPage from '../../pages/LoginPage';
 import PrivateRoute from './PrivateRoute';
-import { LoadingIndicator } from '../LoadingIndicator';
+import { DummyLoadingIndicator } from '../LoadingIndicator';
 
 const BoardPage = React.lazy(() => import('../../pages/BoardPage'));
 const TodosPage = React.lazy(() => import('../../pages/TodosPage'));
@@ -28,34 +28,32 @@ function RoutesWrapper() {
   });
 
   return (
-    <>
+    <Suspense fallback={<DummyLoadingIndicator loading />}>
       {transitions.map(({ item, props, key }) => (
         <animated.div key={key} style={props}>
-          <Suspense fallback={<LoadingIndicator />}>
-            <Switch location={item}>
-              <Route path="/" exact>
-                <Redirect to="/todos" />
-              </Route>
-              <Route path="/login">
-                <LoginPage />
-              </Route>
-              <PrivateRoute path="/board">
-                <BoardPage />
-              </PrivateRoute>
-              <PrivateRoute path="/todos">
-                <TodosPage />
-              </PrivateRoute>
-              <PrivateRoute path="/todo/:id">
-                <TodoPage />
-              </PrivateRoute>
-              <Route path="*">
-                <PageNotFound />
-              </Route>
-            </Switch>
-          </Suspense>
+          <Switch location={item}>
+            <Route path="/" exact>
+              <Redirect to="/todos" />
+            </Route>
+            <Route path="/login">
+              <LoginPage />
+            </Route>
+            <PrivateRoute path="/board">
+              <BoardPage />
+            </PrivateRoute>
+            <PrivateRoute path="/todos">
+              <TodosPage />
+            </PrivateRoute>
+            <PrivateRoute path="/todo/:id">
+              <TodoPage />
+            </PrivateRoute>
+            <Route path="*">
+              <PageNotFound />
+            </Route>
+          </Switch>
         </animated.div>
       ))}
-    </>
+    </Suspense>
   );
 }
 

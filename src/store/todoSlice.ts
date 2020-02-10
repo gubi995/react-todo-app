@@ -2,9 +2,9 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { AppThunk } from './store';
 
-import { showThenHideNotification } from './uiSlice';
-
 import { todoService } from '../services';
+
+import { asyncOperationWithErrorHandling } from '../utils';
 
 import { ITodo } from '../models/todo.model';
 
@@ -46,17 +46,15 @@ const todos = createSlice({
 export const { initTodos, addTodo, updateTodo, deleteTodo } = todos.actions;
 
 export const initTodosAsync = (): AppThunk => async (dispatch) => {
-  try {
+  await asyncOperationWithErrorHandling(dispatch, async () => {
     const fetchedTodos = await todoService.findAll();
 
     dispatch(initTodos(fetchedTodos));
-  } catch (error) {
-    dispatch(showThenHideNotification(error.message));
-  }
+  });
 };
 
 export const saveTodoAsync = (todo: ITodo): AppThunk => async (dispatch) => {
-  try {
+  await asyncOperationWithErrorHandling(dispatch, async () => {
     const newTodo = !!todo.id;
     const todoToStore = await todoService.save(todo);
 
@@ -65,19 +63,15 @@ export const saveTodoAsync = (todo: ITodo): AppThunk => async (dispatch) => {
     } else {
       dispatch(addTodo(todoToStore));
     }
-  } catch (error) {
-    dispatch(showThenHideNotification(error.message));
-  }
+  });
 };
 
 export const deleteTodoAsync = (id: string): AppThunk => async (dispatch) => {
-  try {
+  await asyncOperationWithErrorHandling(dispatch, async () => {
     await todoService.delete(id);
 
     dispatch(deleteTodo(id));
-  } catch (error) {
-    dispatch(showThenHideNotification(error.message));
-  }
+  });
 };
 
 export const selectTodo = (state: TodoState, id: string) => state.todos.find((todo) => todo.id === id);

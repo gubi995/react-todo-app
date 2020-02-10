@@ -1,15 +1,20 @@
 import React from 'react';
 
+import BackDrop from '../BackDrop';
+
+import { Props } from '.';
+
 import './LoadingIndicator.scss';
 
-function LoadingIndicator() {
+function LoadingIndicator({ loading }: Props) {
   return (
-    <div className="sk-folding-cube">
-      <div className="sk-cube1 sk-cube" />
-      <div className="sk-cube2 sk-cube" />
-      <div className="sk-cube4 sk-cube" />
-      <div className="sk-cube3 sk-cube" />
-    </div>
+    <BackDrop opened={loading}>
+      <div className="spinner">
+        <div className="bounce1" />
+        <div className="bounce2" />
+        <div className="bounce3" />
+      </div>
+    </BackDrop>
   );
 }
 

@@ -1,6 +1,6 @@
 import { Button, CreateTodoButton, FacebookButton, GoogleButton } from './Buttons';
 import { Input, InputWithLabel } from './Inputs';
-import { LoadingIndicator } from './LoadingIndicator';
+import { DummyLoadingIndicator, SmartLoadingIndicator } from './LoadingIndicator';
 import RoutesWrapper from './RoutesWrapper';
 import NavigationBar from './NavigationBar';
 import GeneralErrorBoundary from './GeneralErrorBoundary';
@@ -9,7 +9,8 @@ import HamburgerMenu from './HamburgerMenu';
 
 export {
   RoutesWrapper,
-  LoadingIndicator,
+  DummyLoadingIndicator,
+  SmartLoadingIndicator,
   CreateTodoButton,
   Button,
   Input,

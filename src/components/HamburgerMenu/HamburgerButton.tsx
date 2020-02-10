@@ -1,15 +1,14 @@
-import React from 'react';
+import React, { HTMLProps } from 'react';
 
 import { useSpring, animated as a, config } from 'react-spring';
 
 import classes from './HamburgerButton.module.scss';
 
-interface Props {
+interface Props extends HTMLProps<HTMLButtonElement> {
   opened: boolean;
-  clickHandler: () => void;
 }
 
-function HamburgerButton({ opened, clickHandler }: Props) {
+function HamburgerButton({ opened, ...rest }: Props) {
   const topBarAnimation = useSpring({
     backgroundColor: opened ? 'lightseagreen' : 'white',
     transform: `translateY(${opened ? 10 : 0}px) rotate(${opened ? 45 : 0}deg)`,
@@ -28,7 +27,7 @@ function HamburgerButton({ opened, clickHandler }: Props) {
   });
 
   return (
-    <button type="button" className={classes.HamburgerButton} onClick={clickHandler}>
+    <button className={classes.HamburgerButton} {...rest} type="button">
       <a.div style={topBarAnimation} className={classes.Bar} />
       <a.div style={middleBarAnimation} className={classes.Bar} />
       <a.div style={bottomBarAnimation} className={classes.Bar} />

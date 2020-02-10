@@ -2,7 +2,7 @@ import React from 'react';
 
 import HamburgerButton from './HamburgerButton';
 import Drawer from './Drawer';
-import BackDrop from './BackDrop';
+import BackDrop from '../BackDrop/BackDrop';
 
 interface Props {
   opened: boolean;
@@ -13,9 +13,9 @@ interface Props {
 function HamburgerMenu({ opened, clickHandler, children }: Props) {
   return (
     <div>
-      <HamburgerButton opened={opened} clickHandler={clickHandler} />
+      <HamburgerButton opened={opened} onClick={clickHandler} />
       <Drawer opened={opened}>{children}</Drawer>
-      <BackDrop opened={opened} clickHandler={clickHandler} />
+      <BackDrop opened={opened} onClick={clickHandler} />
     </div>
   );
 }

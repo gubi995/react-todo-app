@@ -1,6 +1,13 @@
 import React from 'react';
 
-import { RoutesWrapper, CreateTodoButton, GeneralErrorBoundary, Toast, NavigationBar } from './components';
+import {
+  RoutesWrapper,
+  CreateTodoButton,
+  GeneralErrorBoundary,
+  Toast,
+  NavigationBar,
+  SmartLoadingIndicator,
+} from './components';
 
 function App() {
   return (
@@ -16,6 +23,7 @@ function App() {
           <Toast />
         </footer>
       </GeneralErrorBoundary>
+      <SmartLoadingIndicator />
     </div>
   );
 }
