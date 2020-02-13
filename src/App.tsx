@@ -7,11 +7,13 @@ import {
   Toast,
   NavigationBar,
   SmartLoadingIndicator,
+  ScrollToTop,
 } from './components';
 
 function App() {
   return (
     <div>
+      <ScrollToTop />
       <NavigationBar />
       <GeneralErrorBoundary>
         <main style={{ overflowX: 'hidden' }}>

@@ -6,6 +6,7 @@ import NavigationBar from './NavigationBar';
 import GeneralErrorBoundary from './GeneralErrorBoundary';
 import Toast from './Toast';
 import HamburgerMenu from './HamburgerMenu';
+import ScrollToTop from './ScrollToTop';
 
 export {
   RoutesWrapper,
@@ -21,4 +22,5 @@ export {
   Toast,
   HamburgerMenu,
   NavigationBar,
+  ScrollToTop,
 };
