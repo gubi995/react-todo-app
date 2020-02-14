@@ -16,11 +16,7 @@ interface DispatchProps {
   initTodosAsync: () => void;
 }
 
-const mapStateToProps = (state: RootState): StateProps => {
-  const { todosState } = state;
-
-  return todosState;
-};
+const mapStateToProps = ({ todosState }: RootState): StateProps => todosState;
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>): DispatchProps => ({
   initTodosAsync: () => dispatch(initTodosAsync()),

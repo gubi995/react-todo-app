@@ -10,10 +10,10 @@ interface StateProps {
   show: boolean;
 }
 
-const mapStateToProps = (state: RootState): StateProps => {
-  const notification = selectNotification(state.uiState);
+const mapStateToProps = ({ uiState }: RootState): StateProps => {
+  const notification = selectNotification(uiState);
 
-  return { ...notification };
+  return notification;
 };
 
 export type Props = StateProps;

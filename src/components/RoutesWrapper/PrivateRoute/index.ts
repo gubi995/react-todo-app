@@ -14,8 +14,8 @@ interface OwnProps extends RouteProps {
   children: React.ReactNode;
 }
 
-const mapStateToProps = (state: RootState): StateProps => {
-  const isUserLoggedIn = selectIsUserLoggedIn(state.userState);
+const mapStateToProps = ({ userState }: RootState): StateProps => {
+  const isUserLoggedIn = selectIsUserLoggedIn(userState);
 
   return { isUserLoggedIn };
 };

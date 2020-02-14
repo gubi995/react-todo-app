@@ -1,15 +1,15 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
 
 import { AppThunk } from './store';
 
 interface UiState {
   notification: { message: string; show: boolean };
-  loading: boolean;
+  inProgressRequests: number;
 }
 
 const uiInitialState: UiState = {
   notification: { message: '', show: false },
-  loading: false,
+  inProgressRequests: 0,
 };
 
 const ui = createSlice({
@@ -24,10 +24,10 @@ const ui = createSlice({
       state.notification.show = false;
     },
     showLoading(state) {
-      state.loading = true;
+      state.inProgressRequests += 1;
     },
     hideLoading(state) {
-      state.loading = false;
+      state.inProgressRequests -= 1;
     },
   },
 });
@@ -44,6 +44,8 @@ export const showThenHideNotification = (message: string): AppThunk => (dispatch
 
 export const selectNotification = (state: UiState) => state.notification;
 
-export const selectLoading = (state: UiState) => state.loading;
+export const selectInProgressRequests = (state: UiState) => state.inProgressRequests;
+
+export const selectIsLoading = createSelector(selectInProgressRequests, (InProgressRequests) => InProgressRequests > 0);
 
 export default ui.reducer;

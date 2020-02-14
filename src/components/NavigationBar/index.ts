@@ -14,8 +14,8 @@ interface DispatchProps {
   logoutAsync: (afterLogout?: () => void) => void;
 }
 
-const mapStateToProps = (state: RootState): StateProps => {
-  const isUserLoggedIn = selectIsUserLoggedIn(state.userState);
+const mapStateToProps = ({ userState }: RootState): StateProps => {
+  const isUserLoggedIn = selectIsUserLoggedIn(userState);
 
   return { isUserLoggedIn };
 };

@@ -23,8 +23,8 @@ interface OwnProps {
   id: string;
 }
 
-const mapStateToProps = (state: RootState, { id }: OwnProps): StateProps => {
-  const todo = selectTodo(state.todosState, id);
+const mapStateToProps = ({ todosState }: RootState, { id }: OwnProps): StateProps => {
+  const todo = selectTodo(todosState, id);
 
   return { todo: todo || initialValues };
 };
