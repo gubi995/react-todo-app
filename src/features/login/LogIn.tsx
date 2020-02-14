@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { useHistory } from 'react-router';
 
@@ -13,8 +13,14 @@ import { Props } from '.';
 
 import classes from './LogIn.module.scss';
 
-function LogIn({ emailAndPasswordLoginAsync }: Props) {
+function LogIn({ emailAndPasswordLoginAsync, loginUserIfAlreadyAuthenticated }: Props) {
   const history = useHistory();
+
+  useEffect(() => {
+    loginUserIfAlreadyAuthenticated(() => {
+      history.push('/todos');
+    });
+  }, [loginUserIfAlreadyAuthenticated, history]);
 
   const submitHandler = async (
     userCredentials: IUserCredentials,

@@ -31,6 +31,16 @@ const user = createSlice({
 
 export const { login, logout } = user.actions;
 
+export const loginUserIfAlreadyAuthenticated = (afterSignUp?: () => void): AppThunk => async (dispatch) => {
+  const loggedInUser = await authService.getLoggedInUser();
+
+  if (loggedInUser) {
+    dispatch(login(loggedInUser));
+
+    runCallbackIfExists(afterSignUp);
+  }
+};
+
 export const createUserWithEmailAndPasswordAsync = (
   userCredentials: IUserCredentials,
   afterSignUp?: () => void

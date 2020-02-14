@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 
 import { RootState } from '../../store/rootReducer';
-import { emailAndPasswordLoginAsync } from '../../store/userSlice';
+import { emailAndPasswordLoginAsync, loginUserIfAlreadyAuthenticated } from '../../store/userSlice';
 
 import { IUserCredentials } from '../../models/user.model';
 
@@ -10,6 +10,7 @@ import LogIn from './LogIn';
 
 interface DispatchProps {
   emailAndPasswordLoginAsync: (userCredentials: IUserCredentials, afterLogin?: () => void) => void;
+  loginUserIfAlreadyAuthenticated: (afterLogin?: () => void) => void;
 }
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>): DispatchProps => ({
@@ -18,6 +19,7 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>): DispatchProps
 
     return dispatchFunction;
   },
+  loginUserIfAlreadyAuthenticated: (afterLogin?: () => void) => dispatch(loginUserIfAlreadyAuthenticated(afterLogin)),
 });
 
 export type Props = DispatchProps;

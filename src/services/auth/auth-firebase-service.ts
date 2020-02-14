@@ -10,6 +10,22 @@ class AuthFirebaseService implements IAuthService {
     this.auth = auth;
   }
 
+  async getLoggedInUser(): Promise<IUser> {
+    const userAsync = new Promise<IUser>((res) => {
+      const unsubscribe = this.auth.onAuthStateChanged((user) => {
+        if (user) {
+          res({ email: user?.email!, name: user?.displayName } as IUser);
+        } else {
+          res();
+        }
+
+        unsubscribe();
+      });
+    });
+
+    return userAsync;
+  }
+
   async createUserWithEmailAndPassword({ email, password }: IUserCredentials): Promise<IUser> {
     const userCredential = await this.auth.createUserWithEmailAndPassword(email, password);
 

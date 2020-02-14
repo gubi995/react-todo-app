@@ -19,7 +19,7 @@ interface DispatchProps {
 const mapStateToProps = (state: RootState): StateProps => {
   const { todosState } = state;
 
-  return { ...todosState };
+  return todosState;
 };
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>): DispatchProps => ({

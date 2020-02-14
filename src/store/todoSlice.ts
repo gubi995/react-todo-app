@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { AppThunk } from './store';
+import { logout } from './userSlice';
 
 import { todoService } from '../services';
 
@@ -39,6 +40,12 @@ const todos = createSlice({
       const todoIndex = state.todos.findIndex((todo) => todo.id === payload);
 
       state.todos.splice(todoIndex, 1);
+    },
+  },
+  extraReducers: {
+    [logout.type]: (state) => {
+      state.todos = [];
+      state.loaded = false;
     },
   },
 });
