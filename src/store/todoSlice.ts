@@ -24,7 +24,7 @@ const todos = createSlice({
   initialState: todoInitialState,
   reducers: {
     initTodos(state, { payload }: PayloadAction<ITodo[]>) {
-      state.todos.push(...payload);
+      state.todos = payload;
 
       state.loaded = true;
     },
