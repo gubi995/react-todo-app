@@ -37,7 +37,12 @@ function CreateTodoButton() {
 
   return (
     <animated.div style={animation}>
-      <button type="button" className={classes.CreateTodoButton} onClick={navigateToCreateTodoPage}>
+      <button
+        type="button"
+        className={classes.CreateTodoButton}
+        onClick={navigateToCreateTodoPage}
+        aria-label="Create todo"
+      >
         <Icon className={classes.Icon} icon={pencil} />
       </button>
     </animated.div>

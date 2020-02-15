@@ -27,7 +27,7 @@ function HamburgerButton({ opened, ...rest }: Props) {
   });
 
   return (
-    <button className={classes.HamburgerButton} {...rest} type="button">
+    <button className={classes.HamburgerButton} {...rest} type="button" aria-label="Hamburger menu">
       <a.div style={topBarAnimation} className={classes.Bar} />
       <a.div style={middleBarAnimation} className={classes.Bar} />
       <a.div style={bottomBarAnimation} className={classes.Bar} />

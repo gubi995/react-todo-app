@@ -2,8 +2,6 @@ import React from 'react';
 
 import { useHistory } from 'react-router';
 
-import facebookLogo from '../../../assets/logos/facebook-logo.svg';
-
 import { Props } from '.';
 
 import classes from './FacebookButton.module.scss';
@@ -19,7 +17,7 @@ function FacebookButton({ facebookLoginAsync }: Props) {
 
   return (
     <button type="button" className={classes.FacebookButton} onClick={loginHandler}>
-      <img src={facebookLogo} alt="Facebook logo" className={classes.Logo} />
+      <img src={`${process.env.PUBLIC_URL}/facebook-logo.svg`} alt="Facebook logo" className={classes.Logo} />
       <span>Continue with Facebook</span>
     </button>
   );
