@@ -6,7 +6,10 @@ import { Provider } from 'react-redux';
 import './index.scss';
 import App from './App';
 import store from './store/store';
+import { initHttpClientInterceptors } from './shared/httpClient';
 import * as serviceWorker from './serviceWorker';
+
+initHttpClientInterceptors(store);
 
 ReactDOM.render(
   <Router>

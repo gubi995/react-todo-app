@@ -1,3 +1,4 @@
-import authService from './auth-firebase-service';
+import AuthService from './auth-service';
+import socialProviderService from './social-provider-service';
 
-export { authService };
+export { AuthService, socialProviderService };

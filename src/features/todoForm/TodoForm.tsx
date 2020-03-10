@@ -110,10 +110,10 @@ function TodoForm({ todo, saveTodo, deleteTodo }: Props) {
           </div>
 
           <div className={classes.ButtonsContainer}>
-            <Button type="button" hidden={Boolean(!todo)} onClick={deleteTodoHandler}>
+            <Button type="button" hidden={Boolean(!todo.id)} onClick={deleteTodoHandler}>
               Delete
             </Button>
-            <Button type="reset" hidden={Boolean(todo)}>
+            <Button type="reset" hidden={Boolean(todo.id)}>
               Reset
             </Button>
             <Button type="submit" primary disabled={isSubmitting}>

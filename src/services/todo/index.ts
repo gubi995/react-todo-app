@@ -1,3 +1,3 @@
-import todoService from './todo-firebase-service';
+import TodoService from './todo-service';
 
-export { todoService };
+export { TodoService };

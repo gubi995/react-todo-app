@@ -1,43 +1,72 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { batch } from 'react-redux';
 
 import { AppThunk } from './store';
+import { showThenHideNotification } from './uiSlice';
 
-import { authService } from '../services';
+import { AuthService, socialProviderService } from '../services';
 
-import { runCallbackIfExists, asyncOperationWithErrorHandling } from '../utils';
+import { runCallbackIfExists } from '../utils';
 
 import { IUser, IUserCredentials } from '../models/user.model';
 
 interface UserState {
   user: IUser | null;
+  accessToken: string | null;
 }
 
 const userInitialState: UserState = {
   user: null,
+  accessToken: null,
 };
 
 const user = createSlice({
   name: 'user',
   initialState: userInitialState,
   reducers: {
-    login(state, { payload }: PayloadAction<IUser>) {
-      state.user = payload;
+    login(state, { payload }: PayloadAction<{ user: IUser; accessToken: string }>) {
+      state.user = payload.user;
+      state.accessToken = payload.accessToken;
     },
     logout(state) {
       state.user = null;
+      state.accessToken = null;
     },
   },
 });
 
 export const { login, logout } = user.actions;
 
-export const loginUserIfAlreadyAuthenticated = (afterSignUp?: () => void): AppThunk => async (dispatch) => {
-  const loggedInUser = await authService.getLoggedInUser();
+export const silentRefresh = (tokenExpiryInSec: number, loginUserIfAlreadyAuthenticated: any): AppThunk => (
+  dispatch
+) => {
+  const tokenExpiryInMs = tokenExpiryInSec * 1000;
 
-  if (loggedInUser) {
-    dispatch(login(loggedInUser));
+  setTimeout(() => {
+    dispatch(loginUserIfAlreadyAuthenticated());
+  }, tokenExpiryInMs);
+};
+
+export const loginUserIfAlreadyAuthenticated = (afterSignUp?: () => void): AppThunk => async (dispatch) => {
+  try {
+    const loggedInUser = await AuthService.getLoggedInUser();
+
+    if (!loggedInUser) {
+      return;
+    }
+
+    const { email, accessToken, tokenExpiryInSec } = loggedInUser;
+
+    // TODO: Eliminate duplication
+
+    batch(() => {
+      dispatch(login({ user: { name: '', email }, accessToken }));
+      dispatch(silentRefresh(tokenExpiryInSec, loginUserIfAlreadyAuthenticated));
+    });
 
     runCallbackIfExists(afterSignUp);
+  } catch (error) {
+    dispatch(showThenHideNotification(error.response.data.error));
   }
 };
 
@@ -45,58 +74,75 @@ export const createUserWithEmailAndPasswordAsync = (
   userCredentials: IUserCredentials,
   afterSignUp?: () => void
 ): AppThunk => async (dispatch) => {
-  await asyncOperationWithErrorHandling(dispatch, async () => {
-    const createdUser = await authService.createUserWithEmailAndPassword(userCredentials);
+  try {
+    const { email, accessToken, tokenExpiryInSec } = await AuthService.createUserWithEmailAndPassword(userCredentials);
 
-    dispatch(login(createdUser));
+    batch(() => {
+      dispatch(login({ user: { name: '', email }, accessToken }));
+      dispatch(silentRefresh(tokenExpiryInSec, loginUserIfAlreadyAuthenticated));
+    });
 
     runCallbackIfExists(afterSignUp);
-  });
+  } catch (error) {
+    dispatch(showThenHideNotification(error.response.data.error));
+  }
 };
 
 export const emailAndPasswordLoginAsync = (
   userCredentials: IUserCredentials,
   afterLogin?: () => void
 ): AppThunk => async (dispatch) => {
-  await asyncOperationWithErrorHandling(dispatch, async () => {
-    const userData = await authService.emailAndPasswordLogin(userCredentials);
+  try {
+    const { email, accessToken, tokenExpiryInSec } = await AuthService.emailAndPasswordLogin(userCredentials);
 
-    dispatch(login(userData));
+    batch(() => {
+      dispatch(login({ user: { name: '', email }, accessToken }));
+      dispatch(silentRefresh(tokenExpiryInSec, loginUserIfAlreadyAuthenticated));
+    });
 
     runCallbackIfExists(afterLogin);
-  });
+  } catch (error) {
+    dispatch(showThenHideNotification(error.response.data.error));
+  }
 };
 
 export const facebookLoginAsync = (afterLogin?: () => void): AppThunk => async (dispatch) => {
-  await asyncOperationWithErrorHandling(dispatch, async () => {
-    const userData = await authService.facebookLogin();
+  try {
+    // const userData = await socialProviderService.facebookLogin();
 
-    dispatch(login(userData));
+    // dispatch(login(userData));
 
     runCallbackIfExists(afterLogin);
-  });
+  } catch (error) {
+    dispatch(showThenHideNotification(error.response.data.error));
+  }
 };
 
 export const googleLoginAsync = (afterLogin?: () => void): AppThunk => async (dispatch) => {
-  await asyncOperationWithErrorHandling(dispatch, async () => {
-    const userData = await authService.googleLogin();
+  try {
+    // const userData = await socialProviderService.googleLogin();
 
-    dispatch(login(userData));
+    // dispatch(login(userData));
 
     runCallbackIfExists(afterLogin);
-  });
+  } catch (error) {
+    dispatch(showThenHideNotification(error.response.data.error));
+  }
 };
 
 export const logoutAsync = (afterLogout?: () => void): AppThunk => async (dispatch) => {
-  await asyncOperationWithErrorHandling(dispatch, async () => {
-    await authService.logout();
+  try {
+    await socialProviderService.logout();
+    localStorage.removeItem('refresh-token');
 
     dispatch(logout());
 
     runCallbackIfExists(afterLogout);
-  });
+  } catch (error) {
+    dispatch(showThenHideNotification(error.response.data.error));
+  }
 };
 
-export const selectIsUserLoggedIn = (state: UserState) => !!state.user;
+export const selectIsUserLoggedIn = (state: UserState) => !!state.user && !!state.accessToken;
 
 export default user.reducer;
