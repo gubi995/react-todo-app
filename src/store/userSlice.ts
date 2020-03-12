@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { batch } from 'react-redux';
 
 import { AppThunk } from './store';
 import { showThenHideNotification } from './uiSlice';
@@ -37,7 +36,7 @@ const user = createSlice({
 
 export const { login, logout } = user.actions;
 
-export const silentRefresh = (tokenExpiryInSec: number, loginUserIfAlreadyAuthenticated: any): AppThunk => (
+export const silentTokenRefresh = (tokenExpiryInSec: number, loginUserIfAlreadyAuthenticated: any): AppThunk => (
   dispatch
 ) => {
   const tokenExpiryInMs = tokenExpiryInSec * 1000;
@@ -57,16 +56,18 @@ export const loginUserIfAlreadyAuthenticated = (afterSignUp?: () => void): AppTh
 
     const { email, accessToken, tokenExpiryInSec } = loggedInUser;
 
-    // TODO: Eliminate duplication
-
-    batch(() => {
-      dispatch(login({ user: { name: '', email }, accessToken }));
-      dispatch(silentRefresh(tokenExpiryInSec, loginUserIfAlreadyAuthenticated));
-    });
+    dispatch(login({ user: { name: '', email }, accessToken }));
+    dispatch(silentTokenRefresh(tokenExpiryInSec, loginUserIfAlreadyAuthenticated));
 
     runCallbackIfExists(afterSignUp);
   } catch (error) {
-    dispatch(showThenHideNotification(error.response.data.error));
+    const errorMessage = error.response.data.error;
+
+    if (errorMessage === 'Invalid refresh token') {
+      return;
+    }
+
+    dispatch(showThenHideNotification(errorMessage));
   }
 };
 
@@ -77,10 +78,8 @@ export const createUserWithEmailAndPasswordAsync = (
   try {
     const { email, accessToken, tokenExpiryInSec } = await AuthService.createUserWithEmailAndPassword(userCredentials);
 
-    batch(() => {
-      dispatch(login({ user: { name: '', email }, accessToken }));
-      dispatch(silentRefresh(tokenExpiryInSec, loginUserIfAlreadyAuthenticated));
-    });
+    dispatch(login({ user: { name: '', email }, accessToken }));
+    dispatch(silentTokenRefresh(tokenExpiryInSec, loginUserIfAlreadyAuthenticated));
 
     runCallbackIfExists(afterSignUp);
   } catch (error) {
@@ -95,10 +94,8 @@ export const emailAndPasswordLoginAsync = (
   try {
     const { email, accessToken, tokenExpiryInSec } = await AuthService.emailAndPasswordLogin(userCredentials);
 
-    batch(() => {
-      dispatch(login({ user: { name: '', email }, accessToken }));
-      dispatch(silentRefresh(tokenExpiryInSec, loginUserIfAlreadyAuthenticated));
-    });
+    dispatch(login({ user: { name: '', email }, accessToken }));
+    dispatch(silentTokenRefresh(tokenExpiryInSec, loginUserIfAlreadyAuthenticated));
 
     runCallbackIfExists(afterLogin);
   } catch (error) {

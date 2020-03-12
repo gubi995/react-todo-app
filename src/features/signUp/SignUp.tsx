@@ -30,10 +30,15 @@ function SignUp({ createUserWithEmailAndPasswordAsync }: Props) {
 
       <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={submitHandler}>
         {({ isSubmitting }: FormikProps<ISignUpData>) => (
-          <Form>
-            <InputWithLabel label="Email" name="email" />
-            <InputWithLabel label="Password" name="password" type="password" />
-            <InputWithLabel label="Confirm password" name="confirmPassword" type="password" />
+          <Form noValidate>
+            <InputWithLabel label="Email" name="email" autoComplete="new-email" />
+            <InputWithLabel label="Password" name="password" type="password" autoComplete="new-password" />
+            <InputWithLabel
+              label="Confirm password"
+              name="confirmPassword"
+              type="password"
+              autoComplete="new-password"
+            />
             <Button type="submit" className={classes.SignUpButton} disabled={isSubmitting}>
               Sign up
             </Button>

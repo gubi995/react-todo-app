@@ -48,9 +48,9 @@ function LogIn({ emailAndPasswordLoginAsync, loginUserIfAlreadyAuthenticated }: 
 
         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={submitHandler}>
           {({ isSubmitting }: FormikProps<any>) => (
-            <Form noValidate autoComplete="off">
-              <InputWithLabel label="Email" name="email" />
-              <InputWithLabel label="Password" name="password" type="password" />
+            <Form noValidate>
+              <InputWithLabel label="Email" name="email" autoComplete="current-password" />
+              <InputWithLabel label="Password" name="password" type="password" autoComplete="current-password" />
               <Button type="submit" className={classes.LogInButton} disabled={isSubmitting}>
                 Log in
               </Button>
