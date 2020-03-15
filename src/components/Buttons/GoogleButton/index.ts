@@ -2,16 +2,18 @@ import { connect } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 
 import { RootState } from '../../../store/rootReducer';
-import { googleLoginAsync } from '../../../store/userSlice';
+import { socialLoginAsync } from '../../../store/userSlice';
+import { ISocialSignUpData } from '../../../models/user.model';
 
 import GoogleButton from './GoogleButton';
 
 interface DispatchProps {
-  googleLoginAsync: (afterLogin?: () => void) => void;
+  socialLoginAsync: (userData: ISocialSignUpData, afterLogin?: () => void) => void;
 }
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>): DispatchProps => ({
-  googleLoginAsync: (afterLogin?: () => void) => dispatch(googleLoginAsync(afterLogin)),
+  socialLoginAsync: (userData: ISocialSignUpData, afterLogin?: () => void) =>
+    dispatch(socialLoginAsync(userData, afterLogin)),
 });
 
 export type Props = DispatchProps;

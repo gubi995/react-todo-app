@@ -3,13 +3,21 @@ export interface IUser {
   email: string;
 }
 
-export interface ISignUpData {
+export interface ITraditionalLoginData {
   email: string;
+  password: string;
+}
+
+export interface ITraditionalSignUpData {
+  email: string;
+  name: string;
   password: string;
   confirmPassword: string;
 }
 
-export interface IUserCredentials {
+export interface ISocialSignUpData {
   email: string;
-  password: string;
+  name: string;
+  provider: string;
+  socialId: string;
 }

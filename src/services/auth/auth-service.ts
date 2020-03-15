@@ -1,6 +1,6 @@
 import httpClient from '../../shared/httpClient';
 
-import { IUserCredentials } from '../../models/user.model';
+import { ISocialSignUpData, ITraditionalSignUpData, ITraditionalLoginData } from '../../models/user.model';
 
 class AuthService {
   static async getLoggedInUser(): Promise<any> {
@@ -14,31 +14,41 @@ class AuthService {
       headers: { 'refresh-token': refreshToken },
     });
 
-    const { accessToken, refreshToken: newRefreshToken, tokenExpiryInSec, email } = data;
+    const { accessToken, refreshToken: newRefreshToken, tokenExpiryInSec, user } = data;
 
     localStorage.setItem('refresh-token', newRefreshToken);
 
-    return { email, accessToken, tokenExpiryInSec };
+    return { user, accessToken, tokenExpiryInSec };
   }
 
-  static async createUserWithEmailAndPassword({ email, password }: IUserCredentials): Promise<any> {
+  static async createUserWithEmailAndPassword({ email, password }: ITraditionalSignUpData): Promise<any> {
     const { data } = await httpClient.post('/auth/sign-up', { email, password });
 
-    const { accessToken, refreshToken, tokenExpiryInSec, email: emailFromServer } = data;
+    const { accessToken, refreshToken, tokenExpiryInSec, user } = data;
 
     localStorage.setItem('refresh-token', refreshToken);
 
-    return { email: emailFromServer, accessToken, tokenExpiryInSec };
+    return { user, accessToken, tokenExpiryInSec };
   }
 
-  static async emailAndPasswordLogin({ email, password }: IUserCredentials): Promise<any> {
+  static async emailAndPasswordLogin({ email, password }: ITraditionalLoginData): Promise<any> {
     const { data } = await httpClient.post('/auth/login', { email, password });
 
-    const { accessToken, refreshToken, tokenExpiryInSec, email: emailFromServer } = data;
+    const { accessToken, refreshToken, tokenExpiryInSec, user } = data;
 
     localStorage.setItem('refresh-token', refreshToken);
 
-    return { email: emailFromServer, accessToken, tokenExpiryInSec };
+    return { user, accessToken, tokenExpiryInSec };
+  }
+
+  static async socialSignUp({ email, name, provider, socialId }: ISocialSignUpData): Promise<any> {
+    const { data } = await httpClient.post('/auth/social-sign-up', { email, name, provider, socialId });
+
+    const { accessToken, refreshToken, tokenExpiryInSec, user } = data;
+
+    localStorage.setItem('refresh-token', refreshToken);
+
+    return { user, accessToken, tokenExpiryInSec };
   }
 }
 

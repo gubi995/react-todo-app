@@ -1,3 +1,3 @@
-const initialValues = { email: '', password: '', confirmPassword: '' };
+const initialValues = { email: '', name: '', password: '', confirmPassword: '' };
 
 export default initialValues;

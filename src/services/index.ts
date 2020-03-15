@@ -1,4 +1,4 @@
 import { TodoService } from './todo';
-import { AuthService, socialProviderService } from './auth';
+import { AuthService } from './auth';
 
-export { TodoService, AuthService, socialProviderService };
+export { TodoService, AuthService };

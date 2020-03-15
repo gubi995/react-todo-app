@@ -3,11 +3,11 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppThunk } from './store';
 import { showThenHideNotification } from './uiSlice';
 
-import { AuthService, socialProviderService } from '../services';
+import { AuthService } from '../services';
 
 import { runCallbackIfExists } from '../utils';
 
-import { IUser, IUserCredentials } from '../models/user.model';
+import { IUser, ITraditionalSignUpData, ITraditionalLoginData, ISocialSignUpData } from '../models/user.model';
 
 interface UserState {
   user: IUser | null;
@@ -54,9 +54,9 @@ export const loginUserIfAlreadyAuthenticated = (afterSignUp?: () => void): AppTh
       return;
     }
 
-    const { email, accessToken, tokenExpiryInSec } = loggedInUser;
+    const { user, accessToken, tokenExpiryInSec } = loggedInUser;
 
-    dispatch(login({ user: { name: '', email }, accessToken }));
+    dispatch(login({ user, accessToken }));
     dispatch(silentTokenRefresh(tokenExpiryInSec, loginUserIfAlreadyAuthenticated));
 
     runCallbackIfExists(afterSignUp);
@@ -72,13 +72,13 @@ export const loginUserIfAlreadyAuthenticated = (afterSignUp?: () => void): AppTh
 };
 
 export const createUserWithEmailAndPasswordAsync = (
-  userCredentials: IUserCredentials,
+  userCredentials: ITraditionalSignUpData,
   afterSignUp?: () => void
 ): AppThunk => async (dispatch) => {
   try {
-    const { email, accessToken, tokenExpiryInSec } = await AuthService.createUserWithEmailAndPassword(userCredentials);
+    const { user, accessToken, tokenExpiryInSec } = await AuthService.createUserWithEmailAndPassword(userCredentials);
 
-    dispatch(login({ user: { name: '', email }, accessToken }));
+    dispatch(login({ user, accessToken }));
     dispatch(silentTokenRefresh(tokenExpiryInSec, loginUserIfAlreadyAuthenticated));
 
     runCallbackIfExists(afterSignUp);
@@ -88,13 +88,13 @@ export const createUserWithEmailAndPasswordAsync = (
 };
 
 export const emailAndPasswordLoginAsync = (
-  userCredentials: IUserCredentials,
+  userCredentials: ITraditionalLoginData,
   afterLogin?: () => void
 ): AppThunk => async (dispatch) => {
   try {
-    const { email, accessToken, tokenExpiryInSec } = await AuthService.emailAndPasswordLogin(userCredentials);
+    const { user, accessToken, tokenExpiryInSec } = await AuthService.emailAndPasswordLogin(userCredentials);
 
-    dispatch(login({ user: { name: '', email }, accessToken }));
+    dispatch(login({ user, accessToken }));
     dispatch(silentTokenRefresh(tokenExpiryInSec, loginUserIfAlreadyAuthenticated));
 
     runCallbackIfExists(afterLogin);
@@ -103,23 +103,14 @@ export const emailAndPasswordLoginAsync = (
   }
 };
 
-export const facebookLoginAsync = (afterLogin?: () => void): AppThunk => async (dispatch) => {
+export const socialLoginAsync = (userData: ISocialSignUpData, afterLogin?: () => void): AppThunk => async (
+  dispatch
+) => {
   try {
-    // const userData = await socialProviderService.facebookLogin();
+    const { user, accessToken, tokenExpiryInSec } = await AuthService.socialSignUp(userData);
 
-    // dispatch(login(userData));
-
-    runCallbackIfExists(afterLogin);
-  } catch (error) {
-    dispatch(showThenHideNotification(error.response.data.error));
-  }
-};
-
-export const googleLoginAsync = (afterLogin?: () => void): AppThunk => async (dispatch) => {
-  try {
-    // const userData = await socialProviderService.googleLogin();
-
-    // dispatch(login(userData));
+    dispatch(login({ user, accessToken }));
+    dispatch(silentTokenRefresh(tokenExpiryInSec, loginUserIfAlreadyAuthenticated));
 
     runCallbackIfExists(afterLogin);
   } catch (error) {
@@ -129,7 +120,6 @@ export const googleLoginAsync = (afterLogin?: () => void): AppThunk => async (di
 
 export const logoutAsync = (afterLogout?: () => void): AppThunk => async (dispatch) => {
   try {
-    await socialProviderService.logout();
     localStorage.removeItem('refresh-token');
 
     dispatch(logout());

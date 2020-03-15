@@ -4,16 +4,16 @@ import { ThunkDispatch } from 'redux-thunk';
 import { RootState } from '../../store/rootReducer';
 import { createUserWithEmailAndPasswordAsync } from '../../store/userSlice';
 
-import { IUserCredentials } from '../../models/user.model';
+import { ITraditionalSignUpData } from '../../models/user.model';
 
 import SignUp from './SignUp';
 
 interface DispatchProps {
-  createUserWithEmailAndPasswordAsync: (userCredentials: IUserCredentials, afterSignUp?: () => void) => void;
+  createUserWithEmailAndPasswordAsync: (userCredentials: ITraditionalSignUpData, afterSignUp?: () => void) => void;
 }
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>): DispatchProps => ({
-  createUserWithEmailAndPasswordAsync: (userCredentials: IUserCredentials, afterSignUp?: () => void) => {
+  createUserWithEmailAndPasswordAsync: (userCredentials: ITraditionalSignUpData, afterSignUp?: () => void) => {
     const dispatchFunction = dispatch(createUserWithEmailAndPasswordAsync(userCredentials, afterSignUp));
 
     return dispatchFunction;

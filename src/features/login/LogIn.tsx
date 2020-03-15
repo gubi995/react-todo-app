@@ -5,7 +5,7 @@ import { useHistory } from 'react-router';
 import { Formik, Form, FormikHelpers, FormikProps } from 'formik';
 
 import { FacebookButton, GoogleButton, InputWithLabel, Button } from '../../components';
-import { IUserCredentials } from '../../models/user.model';
+import { ITraditionalLoginData } from '../../models/user.model';
 import initialValues from './initial-values';
 import validationSchema from './validation-schema';
 
@@ -23,8 +23,8 @@ function LogIn({ emailAndPasswordLoginAsync, loginUserIfAlreadyAuthenticated }: 
   }, [loginUserIfAlreadyAuthenticated, history]);
 
   const submitHandler = async (
-    userCredentials: IUserCredentials,
-    { setSubmitting, resetForm }: FormikHelpers<IUserCredentials>
+    userCredentials: ITraditionalLoginData,
+    { setSubmitting, resetForm }: FormikHelpers<ITraditionalLoginData>
   ) => {
     emailAndPasswordLoginAsync(userCredentials, () => {
       setSubmitting(false);

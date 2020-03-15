@@ -4,17 +4,17 @@ import { ThunkDispatch } from 'redux-thunk';
 import { RootState } from '../../store/rootReducer';
 import { emailAndPasswordLoginAsync, loginUserIfAlreadyAuthenticated } from '../../store/userSlice';
 
-import { IUserCredentials } from '../../models/user.model';
+import { ITraditionalLoginData } from '../../models/user.model';
 
 import LogIn from './LogIn';
 
 interface DispatchProps {
-  emailAndPasswordLoginAsync: (userCredentials: IUserCredentials, afterLogin?: () => void) => void;
+  emailAndPasswordLoginAsync: (userCredentials: ITraditionalLoginData, afterLogin?: () => void) => void;
   loginUserIfAlreadyAuthenticated: (afterLogin?: () => void) => void;
 }
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>): DispatchProps => ({
-  emailAndPasswordLoginAsync: (userCredentials: IUserCredentials, afterLogin?: () => void) => {
+  emailAndPasswordLoginAsync: (userCredentials: ITraditionalLoginData, afterLogin?: () => void) => {
     const dispatchFunction = dispatch(emailAndPasswordLoginAsync(userCredentials, afterLogin));
 
     return dispatchFunction;
