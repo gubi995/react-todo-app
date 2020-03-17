@@ -27,7 +27,7 @@ class TodoService {
     const { id } = todo;
 
     if (id) {
-      const { data: updatedTodo } = await httpClient.patch(`api/v1/todos/${id}`, todo);
+      const { data: updatedTodo } = await httpClient.put(`api/v1/todos/${id}`, todo);
 
       return updatedTodo;
     }

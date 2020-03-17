@@ -5,8 +5,6 @@ import { showThenHideNotification } from './uiSlice';
 
 import { AuthService } from '../services';
 
-import { runCallbackIfExists } from '../utils';
-
 import { IUser, ITraditionalSignUpData, ITraditionalLoginData, ISocialSignUpData } from '../models/user.model';
 
 interface UserState {
@@ -59,16 +57,20 @@ export const loginUserIfAlreadyAuthenticated = (afterSignUp?: () => void): AppTh
     dispatch(login({ user, accessToken }));
     dispatch(silentTokenRefresh(tokenExpiryInSec, loginUserIfAlreadyAuthenticated));
 
-    runCallbackIfExists(afterSignUp);
+    afterSignUp?.();
   } catch (error) {
     const errorMessage = error.response.data.error;
 
-    if (errorMessage === 'Invalid refresh token') {
+    if (isIrrelevant(errorMessage)) {
       return;
     }
 
     dispatch(showThenHideNotification(errorMessage));
   }
+};
+
+const isIrrelevant = (errorMessage: string) => {
+  return errorMessage === 'Invalid refresh token' || errorMessage.includes('cookie') || errorMessage.includes('header');
 };
 
 export const createUserWithEmailAndPasswordAsync = (
@@ -81,7 +83,7 @@ export const createUserWithEmailAndPasswordAsync = (
     dispatch(login({ user, accessToken }));
     dispatch(silentTokenRefresh(tokenExpiryInSec, loginUserIfAlreadyAuthenticated));
 
-    runCallbackIfExists(afterSignUp);
+    afterSignUp?.();
   } catch (error) {
     dispatch(showThenHideNotification(error.response.data.error));
   }
@@ -97,7 +99,7 @@ export const emailAndPasswordLoginAsync = (
     dispatch(login({ user, accessToken }));
     dispatch(silentTokenRefresh(tokenExpiryInSec, loginUserIfAlreadyAuthenticated));
 
-    runCallbackIfExists(afterLogin);
+    afterLogin?.();
   } catch (error) {
     dispatch(showThenHideNotification(error.response.data.error));
   }
@@ -112,7 +114,7 @@ export const socialLoginAsync = (userData: ISocialSignUpData, afterLogin?: () =>
     dispatch(login({ user, accessToken }));
     dispatch(silentTokenRefresh(tokenExpiryInSec, loginUserIfAlreadyAuthenticated));
 
-    runCallbackIfExists(afterLogin);
+    afterLogin?.();
   } catch (error) {
     dispatch(showThenHideNotification(error.response.data.error));
   }
@@ -124,7 +126,7 @@ export const logoutAsync = (afterLogout?: () => void): AppThunk => async (dispat
 
     dispatch(logout());
 
-    runCallbackIfExists(afterLogout);
+    afterLogout?.();
   } catch (error) {
     dispatch(showThenHideNotification(error.response.data.error));
   }
