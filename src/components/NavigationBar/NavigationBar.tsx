@@ -5,6 +5,7 @@ import { Icon } from '@iconify/react';
 import memoIcon from '@iconify/icons-twemoji/clipboard';
 
 import HamburgerMenu from '../HamburgerMenu';
+import LoadingProgressBar from '../LoadingProgressBar';
 
 import { Props } from '.';
 
@@ -66,6 +67,7 @@ function NavigationBar({ isUserLoggedIn, logoutAsync }: Props) {
           <span>TODO APP</span>
         </NavLink>
       </nav>
+      <LoadingProgressBar />
     </header>
   );
 }

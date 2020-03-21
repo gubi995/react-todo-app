@@ -5,7 +5,7 @@ import { showLoading, hideLoading } from '../store/uiSlice';
 
 const instance = axios.create({
   baseURL: process.env.REACT_APP_SERVER_URL,
-  timeout: 1000,
+  timeout: 3000,
   withCredentials: true,
   responseType: 'json',
 });

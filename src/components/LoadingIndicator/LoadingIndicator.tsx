@@ -2,13 +2,11 @@ import React from 'react';
 
 import BackDrop from '../BackDrop';
 
-import { Props } from '.';
-
 import './LoadingIndicator.scss';
 
-function LoadingIndicator({ loading }: Props) {
+function LoadingIndicator() {
   return (
-    <BackDrop opened={loading}>
+    <BackDrop opened>
       <div className="spinner">
         <div className="bounce1" />
         <div className="bounce2" />

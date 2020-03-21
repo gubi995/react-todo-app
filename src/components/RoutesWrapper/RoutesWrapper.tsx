@@ -5,7 +5,7 @@ import { useTransition, animated } from 'react-spring';
 
 import LoginPage from '../../pages/LoginPage';
 import PrivateRoute from './PrivateRoute';
-import { DummyLoadingIndicator } from '../LoadingIndicator';
+import LoadingIndicator from '../LoadingIndicator';
 
 const BoardPage = React.lazy(() => import('../../pages/BoardPage'));
 const TodosPage = React.lazy(() => import('../../pages/TodosPage'));
@@ -28,7 +28,7 @@ function RoutesWrapper() {
   });
 
   return (
-    <Suspense fallback={<DummyLoadingIndicator loading />}>
+    <Suspense fallback={<LoadingIndicator />}>
       {transitions.map(({ item, props, key }) => (
         <animated.div key={key} style={props}>
           <Switch location={item}>
