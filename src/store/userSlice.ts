@@ -44,6 +44,14 @@ export const silentTokenRefresh = (tokenExpiryInSec: number, loginUserIfAlreadyA
   }, tokenExpiryInMs);
 };
 
+const isIrrelevant = (errorMessage: string) => {
+  const isTokenInvalid = errorMessage === 'Invalid refresh token';
+  const isCookieValidationError = errorMessage.includes('cookie');
+  const isHeaderValidationError = errorMessage.includes('header');
+
+  return isTokenInvalid || isCookieValidationError || isHeaderValidationError;
+};
+
 export const loginUserIfAlreadyAuthenticated = (afterSignUp?: () => void): AppThunk => async (dispatch) => {
   try {
     const loggedInUser = await AuthService.getLoggedInUser();
@@ -52,10 +60,8 @@ export const loginUserIfAlreadyAuthenticated = (afterSignUp?: () => void): AppTh
       return;
     }
 
-    const { user, accessToken, tokenExpiryInSec } = loggedInUser;
-
-    dispatch(login({ user, accessToken }));
-    dispatch(silentTokenRefresh(tokenExpiryInSec, loginUserIfAlreadyAuthenticated));
+    dispatch(login(loggedInUser));
+    dispatch(silentTokenRefresh(loggedInUser.tokenExpiryInSec, loginUserIfAlreadyAuthenticated));
 
     afterSignUp?.();
   } catch (error) {
@@ -69,19 +75,15 @@ export const loginUserIfAlreadyAuthenticated = (afterSignUp?: () => void): AppTh
   }
 };
 
-const isIrrelevant = (errorMessage: string) => {
-  return errorMessage === 'Invalid refresh token' || errorMessage.includes('cookie') || errorMessage.includes('header');
-};
-
 export const createUserWithEmailAndPasswordAsync = (
   userCredentials: ITraditionalSignUpData,
   afterSignUp?: () => void
 ): AppThunk => async (dispatch) => {
   try {
-    const { user, accessToken, tokenExpiryInSec } = await AuthService.createUserWithEmailAndPassword(userCredentials);
+    const newUser = await AuthService.createUserWithEmailAndPassword(userCredentials);
 
-    dispatch(login({ user, accessToken }));
-    dispatch(silentTokenRefresh(tokenExpiryInSec, loginUserIfAlreadyAuthenticated));
+    dispatch(login(newUser));
+    dispatch(silentTokenRefresh(newUser.tokenExpiryInSec, loginUserIfAlreadyAuthenticated));
 
     afterSignUp?.();
   } catch (error) {
@@ -94,10 +96,10 @@ export const emailAndPasswordLoginAsync = (
   afterLogin?: () => void
 ): AppThunk => async (dispatch) => {
   try {
-    const { user, accessToken, tokenExpiryInSec } = await AuthService.emailAndPasswordLogin(userCredentials);
+    const loggedInUser = await AuthService.emailAndPasswordLogin(userCredentials);
 
-    dispatch(login({ user, accessToken }));
-    dispatch(silentTokenRefresh(tokenExpiryInSec, loginUserIfAlreadyAuthenticated));
+    dispatch(login(loggedInUser));
+    dispatch(silentTokenRefresh(loggedInUser.tokenExpiryInSec, loginUserIfAlreadyAuthenticated));
 
     afterLogin?.();
   } catch (error) {
@@ -109,10 +111,10 @@ export const socialLoginAsync = (userData: ISocialSignUpData, afterLogin?: () =>
   dispatch
 ) => {
   try {
-    const { user, accessToken, tokenExpiryInSec } = await AuthService.socialSignUp(userData);
+    const loggedInUser = await AuthService.socialSignUp(userData);
 
-    dispatch(login({ user, accessToken }));
-    dispatch(silentTokenRefresh(tokenExpiryInSec, loginUserIfAlreadyAuthenticated));
+    dispatch(login(loggedInUser));
+    dispatch(silentTokenRefresh(loggedInUser.tokenExpiryInSec, loginUserIfAlreadyAuthenticated));
 
     afterLogin?.();
   } catch (error) {
@@ -133,5 +135,7 @@ export const logoutAsync = (afterLogout?: () => void): AppThunk => async (dispat
 };
 
 export const selectIsUserLoggedIn = (state: UserState) => !!state.user && !!state.accessToken;
+
+export const selectUser = (state: UserState) => state.user;
 
 export default user.reducer;

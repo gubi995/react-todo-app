@@ -32,7 +32,7 @@ function GoogleButton({ socialLoginAsync }: Props) {
       )}
       onSuccess={loginHandler}
       onFailure={console.log}
-      cookiePolicy={'single_host_origin'}
+      cookiePolicy="single_host_origin"
     />
   );
 }

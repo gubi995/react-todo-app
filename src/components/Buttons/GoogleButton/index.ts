@@ -12,8 +12,9 @@ interface DispatchProps {
 }
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>): DispatchProps => ({
-  socialLoginAsync: (userData: ISocialSignUpData, afterLogin?: () => void) =>
-    dispatch(socialLoginAsync(userData, afterLogin)),
+  socialLoginAsync(userData: ISocialSignUpData, afterLogin?: () => void) {
+    return dispatch(socialLoginAsync(userData, afterLogin));
+  },
 });
 
 export type Props = DispatchProps;

@@ -9,15 +9,17 @@ function PrivateRoute({ isUserLoggedIn, children, ...rest }: Props) {
     <Route
       {...rest}
       render={() => {
-        return isUserLoggedIn ? (
-          children
-        ) : (
-          <Redirect
-            to={{
-              pathname: '/login',
-            }}
-          />
-        );
+        if (!isUserLoggedIn) {
+          return (
+            <Redirect
+              to={{
+                pathname: '/login',
+              }}
+            />
+          );
+        }
+
+        return children;
       }}
     />
   );

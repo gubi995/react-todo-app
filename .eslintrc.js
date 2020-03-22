@@ -38,6 +38,7 @@ module.exports = {
     'react/no-array-index-key': 'off',
     'import/prefer-default-export': 'off',
     'no-param-reassign': 'off',
+    'no-unused-expressions': 'off',
   },
   settings: {
     'import/resolver': {

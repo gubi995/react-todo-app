@@ -2,7 +2,7 @@ import React from 'react';
 
 import classes from './LoadingProgressBar.module.scss';
 
-import { Props } from './';
+import { Props } from '.';
 
 function LoadingProgressBar({ loading }: Props) {
   return (

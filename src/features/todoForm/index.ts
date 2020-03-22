@@ -3,8 +3,10 @@ import { ThunkDispatch } from 'redux-thunk';
 
 import { RootState } from '../../store/rootReducer';
 import { selectTodo, saveTodoAsync, deleteTodoAsync } from '../../store/todoSlice';
+import { selectUser } from '../../store/userSlice';
 
 import { ITodo } from '../../models/todo.model';
+import { IUser } from '../../models/user.model';
 
 import initialValues from './initial-values';
 
@@ -23,10 +25,13 @@ interface OwnProps {
   id: string;
 }
 
-const mapStateToProps = ({ todosState }: RootState, { id }: OwnProps): StateProps => {
+const mapStateToProps = ({ todosState, userState }: RootState, { id }: OwnProps): StateProps => {
   const todo = selectTodo(todosState, id);
+  const { name, email } = selectUser(userState) as IUser;
 
-  return { todo: todo || initialValues };
+  const initialTodo: ITodo = { ...initialValues, assignee: { name, email } };
+
+  return { todo: todo || initialTodo };
 };
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>): DispatchProps => ({
