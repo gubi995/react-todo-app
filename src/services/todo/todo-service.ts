@@ -4,7 +4,7 @@ import { ITodo } from '../../models/todo.model';
 
 class TodoService {
   static async findAll(): Promise<ITodo[]> {
-    const { data: todos, error } = await httpClient.get('api/v1/todos');
+    const { data: todos, error } = await httpClient.get('api/v1/todos/my');
 
     if (error) {
       return [];
